@@ -1250,6 +1250,9 @@ fig.show()
 
 > 偏回归系数（partial regression coefficient），是多元回归问题出现的一个特殊性质。设自变量$x_{1}, x_{2}, \ldots ,x_{m},  $，与因变量$y$具有线性关系，有$y= a_{1}  x_{1} + a_{2}  x_{2}+ \ldots + a_{n}  x_{n}+b$，则$a_{1} , a_{2} , \ldots , a_{n}  $为相对于各自变量的偏回归系数，表示当其他的各自变量都保持一定时，指定的某一自变量每变动一个单位，因变量y增加或减少的数值。 
 
+* 对矩阵表示的求解参数公式$\widehat{ \beta } = ( X^{'} X)^{-1} X^{'}Y$再理解：
+
+多元线性回归模型公式：$y=  \alpha  + \beta _{1} x_{1} + \beta _{2} x_{2}+  \ldots + \beta _{n} x_{n} $，可简单表示为：$Y=X \beta $，其矩阵的表示方式为：$\begin{bmatrix} Y_{1}   \\Y_{2}\\ \vdots\\Y_{n}  \end{bmatrix} = \begin{bmatrix} \alpha + \beta  X_{1}   \\\alpha + \beta  X_{2}\\ \vdots \\\alpha + \beta  X_{n}  \end{bmatrix} = \begin{bmatrix}1 &  X_{1}  \\1 &  X_{2} \\ \vdots & \vdots \\1 &  X_{n}  \end{bmatrix}  \times  \begin{bmatrix} \alpha  \\ \beta  \end{bmatrix} $，因为矩阵不能相除，因此不能直接对$Y=X \beta $两边同时除以$X$，以求取$\beta$，但是可以两边同时乘以$X$的逆矩阵避免除法（矩阵乘以自身的逆矩阵结果为1）。同时只有方阵才可能可逆，而样本的数量是无法控制的，因此用$X$乘以其转置产生一个可以求逆的方阵。
 
 ```python
 import sympy,math
