@@ -12,6 +12,7 @@
     * [2.5 核密度估计与地理空间点密度分布](./notebook_code/kde.md)
     * [2.6 标准误，中心极限定理，t分布，统计显著性，效应量，置信区间；公共健康数据的地理空间分布与相关性分析](./notebook_code/correlation.md)
     * [2.7 简单回归，多元回归](./notebook_code/regression.md)
+    * [2.8 回归公共健康数据，与梯度下降法](./notebook_code/regression_publicHeath_grad.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)
