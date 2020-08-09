@@ -1,4 +1,4 @@
-> Created on Tue Nov 26 20:21:48 2019  @author: Richie Bao-caDesign设计(cadesign.cn) __+updated on Fri Jul 31 10:59:55 2020 by Richie Bao
+> Created on Tue Nov 26 20/21/48 2019  @author: Richie Bao-caDesign设计(cadesign.cn) __+updated on Fri Jul 31 10/59/55 2020 by Richie Bao
 
 ## 1. Landsat遥感影像处理，数字高程，主成成分分析
 ### 1.1 Landsat地理信息读取，裁切，融合，打印显示
