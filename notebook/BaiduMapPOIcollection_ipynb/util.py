@@ -331,3 +331,54 @@ def coefficient_of_determination(observed_vals,predicted_vals):
     R_square_b=1-SS_res/SS_tot
             
     return R_square_a,R_square_b
+
+
+def vector_plot_3d(ax_3d,C,origin_vector,vector,color='r',label='vector',arrow_length_ratio=0.1):
+    '''
+    funciton - 转换SymPy的vector及Matrix数据格式为matplotlib可以打印的数据格式
+
+    Paras:
+    ax_3d - matplotlib的3d格式子图
+    C - /coordinate_system - SymPy下定义的坐标系
+    origin_vector - 如果是固定向量，给定向量的起点（使用向量，即表示从坐标原点所指向的位置），如果是自由向量，起点设置为坐标原点
+    vector - 所要打印的向量
+    color - 向量色彩
+    label - 向量标签
+    arrow_length_ratio - 向量箭头大小     
+    '''
+    origin_vector_matrix=origin_vector.to_matrix(C)
+    x=origin_vector_matrix.row(0)[0]
+    y=origin_vector_matrix.row(1)[0]
+    z=origin_vector_matrix.row(2)[0]
+
+    vector_matrix=vector.to_matrix(C)
+    u=vector_matrix.row(0)[0]
+    v=vector_matrix.row(1)[0]
+    w=vector_matrix.row(2)[0]
+    ax_3d.quiver(x,y,z,u,v,w,color=color,label=label,arrow_length_ratio=arrow_length_ratio)
+    
+    
+def move_alongVectors(vector_list,coeffi_list,C,ax,):
+    import random
+    import sympy
+    '''
+    function - 给定向量，及对应系数，延向量绘制
+
+    Paras:
+    vector_list - 向量列表，按移动顺序
+    coeffi_list - 向量的系数    
+    C - SymPy下定义的坐标系
+    ax - 子图
+    '''
+    colors=[color[0] for color in mcolors.TABLEAU_COLORS.items()]  #mcolors.BASE_COLORS, mcolors.TABLEAU_COLORS,mcolors.CSS4_COLORS
+    colors__random_selection=random.sample(colors,len(vector_list)-1)
+    v_accumulation=[]
+    v_accumulation.append(vector_list[0])
+    #每个向量绘制以之前所有向量之和为起点
+    for expr in vector_list[1:]:
+        v_accumulation.append(expr+v_accumulation[-1])
+
+    v_accumulation=v_accumulation[:-1]   
+    for i in range(1,len(vector_list)):
+        vector_plot_3d(ax,C,v_accumulation[i-1].subs(coeffi_list),vector_list[i].subs(coeffi_list),color=colors__random_selection[i-1],label='v_%s'%coeffi_list[i-1][0],arrow_length_ratio=0.2)    
+    
