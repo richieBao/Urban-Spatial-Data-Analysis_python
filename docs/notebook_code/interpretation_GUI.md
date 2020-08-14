@@ -903,6 +903,11 @@ precision_percent=np.sum(precision_confusionMatrix.diagonal())/len(sampling_posi
 print("precision - confusion Matrix:\n",precision_confusionMatrix)     
 print("precision - percent:",precision_percent)
 ```
+precision - confusion Matrix:
+ [[51  2  0]
+ [10 54  0]
+ [ 0  2 19]]
+precision - percent: 0.8985507246376812
 
 ### 1.4 要点
 #### 1.4.1 数据处理技术
