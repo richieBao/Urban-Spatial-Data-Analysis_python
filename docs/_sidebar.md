@@ -15,6 +15,7 @@
     * [2.8 回归公共健康数据，与梯度下降法](./notebook_code/regression_publicHeath_grad.md)
     * [2.9 线性代数基础的代码表述](./notebook_code/linear_algebra.md)
     * [2.10 Landsat遥感影像处理，数字高程，主成成分分析](./notebook_code/landsat_pca.md)
+    * [2.11 遥感影像解译（基于NDVI），建立采样工具（GUI_tkinter），混淆矩阵](./notebook_code/interpretation_GUI.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)

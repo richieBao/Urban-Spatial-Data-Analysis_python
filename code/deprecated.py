@@ -109,3 +109,58 @@ from knee_locator import KneeLocator
 knee=KneeLocator(x=sample_size_list,y=sample_sigma_list, curve='concave', direction='decreasing') #concave convex
 print(round(knee.knee, 3))
 print(round(knee.elbow, 3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+from bokeh.plotting import figure, show, output_file
+from bokeh.io import output_notebook
+
+from bokeh.layouts import column, row
+from bokeh.models import CustomJS, Slider
+from bokeh.plotting import ColumnDataSource, figure, output_file, show
+output_notebook()
+
+img=[np.flip(s_190820_NDVI_percentile,0)]
+source=ColumnDataSource(data=dict(image=img))
+p=figure(x_range=[0, 10], y_range=[0, 10])
+p.image(image='image', x=0, y=0, dw=10, dh=10, source=source, palette="Spectral11")
+
+p_1_slider=Slider(start=0, end=1, value=0.1, step=.001, title="percentile_1")
+p_2_slider=Slider(start=0, end=1, value=0.3, step=.001, title="percentile_2")
+p_3_slider=Slider(start=0, end=1, value=0.5, step=.001, title="percentile_3")
+
+callback=CustomJS(args=dict(source=source, p_1=p_1_slider, p_2=p_2_slider, p_3=p_3_slider,NDVI=s_190820_NDVI_rescaled),
+    code="""
+    const data=source.data;
+    const p_1_=p_1.value;
+    const p_2_=p_2.value;
+    const p_3_=p_3.value;
+    const NDVI_=NDVI;
+    const img=data['image'];
+    
+    img=[np.flip(data_division(NDVI_,[p_1_,p_2_,p_3_],right=True),0)];
+    source.change.emit();
+    """
+                 )
+
+p_1_slider.js_on_change('value', callback)
+p_2_slider.js_on_change('value', callback)
+p_3_slider.js_on_change('value', callback)
+
+layout=row(
+    p,
+    column(p_1_slider,p_2_slider,p_3_slider),
+)
+
+output_file("./imgs/NDVI_slider.html", title="NDVI_slider")
+show(layout) 
