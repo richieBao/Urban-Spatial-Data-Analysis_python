@@ -894,8 +894,8 @@ print("precision - confusion Matrix:\n",precision_confusionMatrix)
 print("precision - percent:",precision_percent)
 ```
 
-## 1.4 要点
-### 1.4.1 数据处理技术
+### 1.4 要点
+#### 1.4.1 数据处理技术
 
 * 配合使用rasterio,geopandas, earthpy处理遥感影像
 
@@ -903,7 +903,7 @@ print("precision - percent:",precision_percent)
 
 * 使用tkinter构建交互的GUI采样工具
 
-### 1.4.2 新建立的函数
+#### 1.4.2 新建立的函数
 
 * function - 给定裁切边界，批量裁切栅格数据，`raster_clip(raster_fp,clip_boundary_fp,save_path)`
 
@@ -919,7 +919,7 @@ print("precision - percent:",precision_percent)
 
 * 基于tkinter，开发交互式GUI采样工具
 
-### 1.4.3 所调用的库
+#### 1.4.3 所调用的库
 
 ```python 
 import os,random
@@ -958,5 +958,5 @@ import pickle as pkl
 from sklearn.metrics import confusion_matrix
 ```
 
-### 1.4.4 参考文献
+#### 1.4.4 参考文献
 -
