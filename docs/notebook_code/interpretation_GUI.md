@@ -97,7 +97,7 @@ print("finished stacking_3...")
     finished stacking_3...
     
 
-只有将数据显示出来，才能更好的判断地理空间数据处理的结果是否正确。建立`w_180310_array`影像波段显示函数，查看影像。可以通过`band_num`输入参数，确定合成显示的波段。
+只有将数据显示出来，才能更好的判断地理空间数据处理的结果是否正确。建立`bands_show`影像波段显示函数，查看影像。可以通过`band_num`输入参数，确定合成显示的波段。
 
 
 ```python
@@ -255,7 +255,7 @@ fig=px.imshow(img=s_190820_NDVI_rescaled,zmin=s_190820_NDVI_rescaled.min(),zmax=
 fig.show()
 ```
 
-<a href=""><img src="./imgs/11_10.png" height="auto" width="auto" title="caDesign"></a>
+<a href=""><img src="./imgs/11_10.png" height="auto" width="800" title="caDesign"></a>
 
 所计算的NDVI值是一个无量纲，维度为1的数组，值通常为浮点型小数，在使用matplotlib，plotly，seaborn和bokeh等图表库时，一般会使用RGB，RGBA，十六进制形式，以及浮点型等表示颜色的数据格式。对于所计算的NDVI，定义函数data_division，将其按照分类的阈值转换为RGB的颜色格式方便图像打印。因为NDVI本身不是颜色数据，首先根据分类阈值计算百分位数（.percentile），然后根据其百分位数使用.digitize方法，返回数值对应区间的索引（整数）。由区间数量即唯一的索引数定义不同的位于0-255的随机整数（每个值对应三个随机整数值），代表颜色。
 
@@ -292,6 +292,16 @@ print("finished rescale .")
 ```
 
     finished rescale .
+    
+```python
+division=[0,35,85]
+_,s_190820_NDVI_RGB=data_division(s_190820_NDVI_rescaled,division)
+fig=px.imshow(img=s_190820_NDVI_RGB,zmin=s_190820_NDVI_RGB.min(),zmax=s_190820_NDVI_RGB.max(),width=800,height=800,color_continuous_scale=px.colors.sequential.speed)
+fig.show()
+```
+
+<a href=""><img src="./imgs/11_06.png" height="auto" width="800" title="caDesign"></a>
+
 
 能够辅助解译，确定阈值，可以通过直方图（频数分布）查看NDVI的数据分布情况。因为地物的数量不同，某些转折，或断裂的位置点则可能代表不同的地物。
 
