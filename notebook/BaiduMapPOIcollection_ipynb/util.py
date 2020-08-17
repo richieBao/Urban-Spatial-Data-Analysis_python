@@ -436,3 +436,352 @@ def NDVI(RED_band,NIR_band):
     NDVI=NDVI.filled(-9999)
     print("NDVI"+"_min:%f,max:%f"%(NDVI.min(),NDVI.max()))
     return NDVI
+
+def las_2_DSM_Classification_raster_(las_fp,save_path):
+    import pdal
+    '''
+    function - 转换单个.las点云数据为分类栅格数据，和DSM栅格数据
+    
+    Paras:
+    las_fp - .las格式文件路径
+    save_path - 保存路径列表，分类DSM存储与不同路径下
+    
+    '''
+    
+    #pipeline-用于建立分类栅格
+    json_classification="""
+        {
+        "pipeline": [
+                     "%s",
+                     {
+                     "filename":"%s",
+                     "type":"writers.gdal",
+                     "dimension":"Classification",
+                     "data_type":"uint16_t",
+                     "output_type":"mean",  
+                     "resolution": 1
+                     }               
+        ]        
+        }"""%(las_fp,save_path[0])
+    
+    #pipeline-用于建立DSM栅格数据
+    json_DSM="""
+        {
+        "pipeline": [
+                     "%s",
+                     {
+                     "filename":"%s",
+                     "gdaldriver":"GTiff",
+                     "type":"writers.gdal",
+                     "output_type":"mean",  
+                     "resolution": 1
+                     }               
+        ]        
+        }"""%(las_fp,save_path[1])    
+    
+    json_combo=[json_classification,json_DSM] #配置选择性输出
+    for json in json_combo:
+        pipeline=pdal.Pipeline(json)
+        pipeline.loglevel=8 #日志级别配置
+        if pipeline.validate(): #检查json选项是否正确
+            #print(pipeline.validate())
+            try:
+                count=pipeline.execute()
+            except:
+                print("\n An exception occurred,the file name:%s"%las_fp)
+                print(pipeline.log) #如果出现错误，打印日志查看，以便修正错误代码
+                
+        else:
+            print("pipeline unvalidate!!!")
+            
+def  las_info_extraction(las_fp,json_combo):
+    import pdal
+    '''
+    function - 转换单个.las点云数据为分类栅格数据，和DSM栅格数据
+    
+    Paras:
+    las_fp - .las格式文件路径
+    save_path - 保存路径列表，分类DSM存储与不同路径下
+    
+    '''
+    pipeline_list=[]
+    if 'json_classification' in json_combo.keys():
+        #pipeline-用于建立分类栅格
+        json_classification="""
+            {
+            "pipeline": [
+                         "%s",
+                         {
+                         "filename":"%s",
+                         "type":"writers.gdal",
+                         "dimension":"Classification",
+                         "data_type":"uint16_t",
+                         "output_type":"mean",  
+                         "resolution": 1
+                         }               
+            ]        
+            }"""%(las_fp,json_combo['json_classification'])
+        pipeline_list.append(json_classification)
+        
+    elif 'json_DSM' in json_combo.keys():
+        #pipeline-用于建立DSM栅格数据
+        json_DSM="""
+            {
+            "pipeline": [
+                         "%s",
+                         {
+                         "filename":"%s",
+                         "gdaldriver":"GTiff",
+                         "type":"writers.gdal",
+                         "output_type":"mean",  
+                         "resolution": 1
+                         }               
+            ]        
+            }"""%(las_fp,json_combo['json_DSM']) 
+        pipeline_list.append(json_DSM)
+        
+    elif 'json_ground' in json_combo.keys():
+        #pipelin-用于提取ground地表
+        json_ground="""
+            {
+            "pipeline": [
+                         "%s",
+                         {
+                         "type":"filters.range",
+                         "limits":"Classification[2:2]"                     
+                         },
+                         {
+                         "filename":"%s",
+                         "gdaldriver":"GTiff",
+                         "type":"writers.gdal",
+                         "output_type":"mean",  
+                         "resolution": 1
+                         }               
+            ]        
+            }"""%(las_fp,json_combo['json_ground'])   
+        pipeline_list.append(json_ground)
+    
+    
+    for json in pipeline_list:
+        pipeline=pdal.Pipeline(json)
+        pipeline.loglevel=8 #日志级别配置
+        if pipeline.validate(): #检查json选项是否正确
+            #print(pipeline.validate())
+            try:
+                count=pipeline.execute()
+            except:
+                print("\n An exception occurred,the file name:%s"%las_fp)
+                print(pipeline.log) #如果出现错误，打印日志查看，以便修正错误代码
+                
+        else:
+            print("pipeline unvalidate!!!")
+    #print("finished conversion...")     
+
+def las_info_extraction_combo(las_dirPath,json_combo_):
+    import util,os,re
+    from tqdm import tqdm
+    '''
+    function - 批量转换.las点云数据为DTM和分类栅格
+    
+    Paras:
+    las_dirPath - LAS文件路径
+    save_path - 保存路径
+    
+    return:
+        
+    '''
+    file_type=['las']
+    las_fn=util.filePath_extraction(las_dirPath,file_type)
+    '''展平列表函数'''
+    flatten_lst=lambda lst: [m for n_lst in lst for m in flatten_lst(n_lst)] if type(lst) is list else [lst]
+    las_fn_list=flatten_lst([[os.path.join(k,las_fn[k][i]) for i in range(len(las_fn[k]))] for k in las_fn.keys()])
+    pattern=re.compile(r'[_](.*?)[.]', re.S) 
+    for i in tqdm(las_fn_list):  
+        fn_num=re.findall(pattern, i.split("\\")[-1])[0] #提取文件名字符串中的数字
+        #注意文件名路径中"\"和"/"，不同库支持的类型可能有所不同，需自行调整
+        json_combo={key:os.path.join(json_combo_[key],"%s_%s.tif"%(os.path.split(json_combo_[key])[-1],fn_num)).replace("\\","/") for key in json_combo_.keys()}        
+        util.las_info_extraction_combo(i.replace("\\","/"),json_combo)
+    
+       
+def raster_mosaic(dir_path,out_fp,):
+    import rasterio,glob,os
+    from rasterio.merge import merge
+    '''
+    function - 合并多个栅格为一个
+    
+    Paras:
+    dir_path - 栅格根目录
+    out-fp - 保存路径
+    
+    return:
+    out_trans - 返回变换信息
+    '''
+    
+    #迁移rasterio提供的定义数组最小数据类型的函数
+    def get_minimum_int_dtype(values):
+        """
+        Uses range checking to determine the minimum integer data type required
+        to represent values.
+
+        :param values: numpy array
+        :return: named data type that can be later used to create a numpy dtype
+        """
+
+        min_value = values.min()
+        max_value = values.max()
+
+        if min_value >= 0:
+            if max_value <= 255:
+                return rasterio.uint8
+            elif max_value <= 65535:
+                return rasterio.uint16
+            elif max_value <= 4294967295:
+                return rasterio.uint32
+        elif min_value >= -32768 and max_value <= 32767:
+            return rasterio.int16
+        elif min_value >= -2147483648 and max_value <= 2147483647:
+            return rasterio.int32
+    
+    search_criteria = "*.tif" #搜寻所要合并的栅格.tif文件
+    fp_pattern=os.path.join(dir_path, search_criteria)
+    fps=glob.glob(fp_pattern) #使用glob库搜索指定模式的文件
+    src_files_to_mosaic=[]
+    for fp in fps:
+        src=rasterio.open(fp)
+        src_files_to_mosaic.append(src)    
+    mosaic,out_trans=merge(src_files_to_mosaic)  #merge函数返回一个栅格数组，以及转换信息   
+    
+    #获得元数据
+    out_meta=src.meta.copy()
+    #更新元数据
+    data_type=get_minimum_int_dtype(mosaic)
+    out_meta.update({"driver": "GTiff",
+                     "height": mosaic.shape[1],
+                     "width": mosaic.shape[2],
+                     "transform": out_trans,
+                     #通过压缩和配置存储类型，减小存储文件大小
+                     "compress":'lzw',
+                     "dtype":get_minimum_int_dtype(mosaic), 
+                      }
+                    )       
+    with rasterio.open(out_fp, "w", **out_meta) as dest:
+        dest.write(mosaic.astype(data_type))     
+    
+    return out_trans            
+
+def las_classification_plotWithLegend(las_fp):  
+    import rasterio as rio
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    from matplotlib import colors
+    from matplotlib.patches import Rectangle
+    '''
+    function - 显示由.las文件生成的分类栅格文件，并显示图例
+    
+    Paras:
+    las_fp - 分类文件路径
+    '''    
+    with rio.open(las_fp) as classi_src:
+        classi_array=classi_src.read(1)
+
+    las_classi_colorName={0:'black',1:'white',2:'beige',3:'palegreen',4:'lime',5:'green',6:'tomato',7:'silver',8:'grey',9:'lightskyblue',10:'purple',11:'slategray',12:'grey',13:'cadetblue',14:'lightsteelblue',15:'brown',16:'indianred',17:'darkkhaki',18:'azure',9999:'pink'}
+    las_classi_colorRGB=pd.DataFrame({key:colors.hex2color(colors.cnames[las_classi_colorName[key]]) for key in las_classi_colorName.keys()})
+    classi_array_color=[pd.DataFrame(classi_array).replace(las_classi_colorRGB.iloc[idx]).to_numpy() for idx in las_classi_colorRGB.index]
+    classi_array_color_=np.concatenate([np.expand_dims(i,axis=-1) for i in classi_array_color],axis=-1)
+    fig, ax=plt.subplots(figsize=(12, 12))
+    im=ax.imshow(classi_array_color_, )
+    ax.set_title(
+        "LAS_classification",
+        fontsize=14,
+    )
+
+    #增加图例
+    color_legend=pd.DataFrame(las_classi_colorName.items(),columns=["id","color"])
+    las_classi_name={0:'never classified',1:'unassigned',2:'ground',3:'low vegetation',4:'medium vegetation',5:'high vegetation',6:'building',7:'low point',8:'reserved',9:'water',10:'rail',11:'road surface',12:'reserved',13:'wire-guard(shield)',14:'wire-conductor(phase)',15:'transimission',16:'wire-structure connector(insulator)',17:'bridge deck',18:'high noise',9999:'null'}
+    color_legend['label']=las_classi_name.values()
+    classi_lengend=[Rectangle((0, 0), 1, 1, color=c) for c in color_legend['color']]
+
+    ax.legend(classi_lengend,color_legend.label,mode='expand',ncol=3)
+    plt.tight_layout()
+    plt.show()
+    
+def las_classification_plotWithLegend_(classi_array):  
+    import rasterio as rio
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    from matplotlib import colors
+    from matplotlib.patches import Rectangle
+    '''
+    function - 显示由.las文件生成的分类栅格文件，并显示图例
+    
+    Paras:
+    las_fp - 分类文件路径
+    '''    
+    las_classi_colorName={0:'black',1:'white',2:'beige',3:'palegreen',4:'lime',5:'green',6:'tomato',7:'silver',8:'grey',9:'lightskyblue',10:'purple',11:'slategray',12:'grey',13:'cadetblue',14:'lightsteelblue',15:'brown',16:'indianred',17:'darkkhaki',18:'azure',9999:'white'}
+    las_classi_colorRGB=pd.DataFrame({key:colors.hex2color(colors.cnames[las_classi_colorName[key]]) for key in las_classi_colorName.keys()})
+    classi_array_color=[pd.DataFrame(classi_array).replace(las_classi_colorRGB.iloc[idx]).to_numpy() for idx in las_classi_colorRGB.index]
+    classi_array_color_=np.concatenate([np.expand_dims(i,axis=-1) for i in classi_array_color],axis=-1)
+    fig, ax=plt.subplots(figsize=(12, 12))
+    im=ax.imshow(classi_array_color_, )
+    ax.set_title(
+        "LAS_classification",
+        fontsize=14,
+    )
+
+    #增加图例
+    color_legend=pd.DataFrame(las_classi_colorName.items(),columns=["id","color"])
+    las_classi_name={0:'never classified',1:'unassigned',2:'ground',3:'low vegetation',4:'medium vegetation',5:'high vegetation',6:'building',7:'low point',8:'reserved',9:'water',10:'rail',11:'road surface',12:'reserved',13:'wire-guard(shield)',14:'wire-conductor(phase)',15:'transimission',16:'wire-structure connector(insulator)',17:'bridge deck',18:'high noise',9999:'null'}
+    color_legend['label']=las_classi_name.values()
+    classi_lengend=[Rectangle((0, 0), 1, 1, color=c) for c in color_legend['color']]
+
+    ax.legend(classi_lengend,color_legend.label,mode='expand',ncol=3)
+    plt.tight_layout()
+    plt.show()
+    
+def raster_reprojection(raster_fp,dst_crs,save_path):
+    from rasterio.warp import calculate_default_transform, reproject, Resampling
+    import rasterio as rio
+    '''
+    function - 转换栅格投影
+    
+    Paras:
+    raster_fp - 待转换投影的栅格
+    dst_crs - 目标投影
+    save_path - 保存路径
+    '''
+    with rio.open(raster_fp) as src:
+        transform, width, height = calculate_default_transform(src.crs, dst_crs, src.width, src.height, *src.bounds)
+        kwargs = src.meta.copy()
+        kwargs.update({
+            'crs': dst_crs,
+            'transform': transform,
+            'width': width,
+            'height': height
+        })
+        with rio.open(save_path, 'w', **kwargs) as dst:
+            for i in range(1, src.count + 1):
+                reproject(
+                    source=rio.band(src, i),
+                    destination=rio.band(dst, i),
+                    src_transform=src.transform,
+                    src_crs=src.crs,
+                    dst_transform=transform,
+                    dst_crs=dst_crs,
+                    resampling=Resampling.nearest)      
+    print("finished reprojecting...")    
+    
+def get_crs_raster(raster_fp):
+    import rasterio as rio
+    '''
+    function - 获取给定栅格的投影坐标-crs.
+    
+    Paras:
+    raster)fp - 给定栅格文件的路径
+    '''
+    with rio.open(raster_fp) as raster_crs:
+        raster_profile=raster_crs.profile
+        return raster_profile['crs']    
