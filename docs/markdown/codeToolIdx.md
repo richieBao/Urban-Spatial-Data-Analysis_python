@@ -67,3 +67,15 @@
 43. function - 将数据按照给定的百分数划分，并给定固定的值,整数值或RGB色彩值，data_division(data,division,right=True)
 44. function - 多个栅格数据，给定百分比，变化观察，percentile_slider(season_dic)
 45. 基于tkinter，开发交互式GUI采样工具
+
+## 12. 点云数据（激光雷达）处理——分类数据，DSM，建筑高度提取，插值
+46. function - 转换单个.las点云数据为分类栅格数据，和DSM栅格数据等
+47. function - 显示由.las文件生成的分类栅格文件，并显示图例
+48. function - 批量转换.las点云数据为DSM和分类栅格
+49. function - 合并多个栅格为一个
+50. function - 迁移rasterio提供的定义数组最小数据类型的函数
+51. function - 获取给定栅格的投影坐标-crs
+52. function - 转换栅格投影
+53. function - 根据给定栅格的范围，裁切.shp格式数据，并定义投影同给定栅格
+54. function - 使用rasterio.fill的插值方法，补全缺失的数据
+55. function - 使用earthpy库显示遥感影像（一个波段）
