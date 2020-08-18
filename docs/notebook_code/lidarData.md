@@ -1,7 +1,7 @@
 > Created on Mon Dec  2 22/25/18 2019  @author: Richie Bao-caDesign设计(cadesign.cn)
 > __+updated on Fri Aug 14 21/20/01 2020 by Richie Bao
 
-## 1. 点云数据（激光雷达）处理——分类数据，DTM，建筑高度提取，插值
+## 1. 点云数据（激光雷达）处理——分类数据，DSM，建筑高度提取，插值
 点云（point cloud）是使用三维扫描仪获取的资料，当然设计的三维模型也可以转换为点云数据据。其中三维对象以点的形式记录，每个点即为一个三维坐标，同时可能包含颜色信息（RGB），或物体反射面的强度（intensity）。强度信息是激光扫描仪接受装置采集到的回波强度，与目标的表面材质、粗糙度、入射角方向以及仪器的发射能量，激光波长有关。点云数据的数据格式比较丰富，常用的包括.xyz(.xyzn，.xyzrgb)，.las，.ply，.pcd，.pts等，也包括一些关联格式的存储类型，例如基于numpy存储的array数组.numpy(.npu)，基于matlab格式存储的.matlab数组格式，当然也有基于文本存储的.txt文件。注意虽然有些存储类型后缀名不同，也许实际上，数据格式相同。在地理空间数据中，常使用.las格式的数据。LAS（LASer）格式是由美国摄影测量和遥感协会（American Society for Photogrammetry and Remote Sensing，ASPRS）制定的激光雷达点云数据的交换和归档文件格式，被认为是激光雷达数据的行业标准。LAS格式点云数据包括多个版本，最近的为LAS 1.4（2011.11.14），不同的版本点云数据包括的信息也许不同，需要注意这点。LAS通常包括由整数值标识的分类信息（LAS1.1及之后的版本），其1.1-1.4LAS类别代码如下：
 
 |  分类值/classification value | 类别  |   
