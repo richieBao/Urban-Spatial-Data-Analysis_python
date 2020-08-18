@@ -6,9 +6,6 @@
 # 代码工具索引
 > 本书的目的不仅在于一般意义上的教材，以及专业上相关实验的阐述，同时，使大量实验所编写代码片段形成一个个可以方便迁移使用的工具，形成工具包。
 
-# 代码工具索引
-> 本书的目的不仅在于一般意义上的教材，以及专业上相关实验的阐述，同时，使大量实验所编写代码片段形成一个个可以方便迁移使用的工具，形成工具包。
-
 ## 1. 单个分类POI数据爬取与地理空间点地图
 1. function-百度地图开放平台POI数据爬取，baiduPOI_dataCrawler(query_dic,bound_coordinate,partition,page_num_range,poi_fn_list=False);
 2. function-转换.csv格式的POI数据为pandas的DataFrame,csv2df(poi_fn_csv)；
