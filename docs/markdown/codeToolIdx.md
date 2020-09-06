@@ -69,13 +69,32 @@
 45. 基于tkinter，开发交互式GUI采样工具
 
 ## 12. 点云数据（激光雷达）处理——分类数据，DSM，建筑高度提取，插值
-46. function - 转换单个.las点云数据为分类栅格数据，和DSM栅格数据等
-47. function - 显示由.las文件生成的分类栅格文件，并显示图例
-48. function - 批量转换.las点云数据为DSM和分类栅格
-49. function - 合并多个栅格为一个
-50. function - 迁移rasterio提供的定义数组最小数据类型的函数
-51. function - 获取给定栅格的投影坐标-crs
-52. function - 转换栅格投影
-53. function - 根据给定栅格的范围，裁切.shp格式数据，并定义投影同给定栅格
-54. function - 使用rasterio.fill的插值方法，补全缺失的数据
-55. function - 使用earthpy库显示遥感影像（一个波段）
+46. function - 转换单个.las点云数据为分类栅格数据，和DSM栅格数据等，`las_info_extraction(las_fp,json_combo)`
+47. function - 显示由.las文件生成的分类栅格文件，并显示图例，`las_classification_plotWithLegend(las_fp)`
+48. function - 批量转换.las点云数据为DSM和分类栅格，`las_info_extraction_combo(las_dirPath,json_combo_)`
+49. function - 合并多个栅格为一个，`raster_mosaic(dir_path,out_fp,)`
+50. function - 迁移rasterio提供的定义数组最小数据类型的函数，`get_minimum_int_dtype(values)`
+51. function - 获取给定栅格的投影坐标-crs，`get_crs_raster(raster_fp)`
+52. function - 转换栅格投影，`raster_reprojection(raster_fp,dst_crs,save_path)`
+53. function - 根据给定栅格的范围，裁切.shp格式数据，并定义投影同给定栅格，`clip_shp_withRasterExtent(vector_shp_fp,reference_raster_fp,save_path)`
+54. function - 使用rasterio.fill的插值方法，补全缺失的数据，`rasters_interpolation(raster_path,save_path,max_search_distance=400,smoothing_iteration=0)`
+55. function - 使用earthpy库显示遥感影像（一个波段），`raster_show(raster_fp,title='raster',vmin_vmax=[0.25,0.95],cmap="turbo")`
+
+## 13. 卷积，SIR传播模型，成本栅格与物种散布，SIR空间传播模型
+56. class - 一维卷积动画解析，可以自定义系统函数和信号函数，`class dim1_convolution_SubplotAnimation(animation.TimedAnimation)`
+57. function - 定义系统响应函数.类型-1， `G_T_type_1()`
+58. function - 定义输入信号函数，类型-1， `F_T_type_1(timing)`
+59. function - 定义系统响应函数.类型-2，`G_T_type_2()`
+60. function - 定义输入信号函数，类型-2， `F_T_type_2(timing)`
+61. function - 读取MatLab的图表数据，类型-A， `read_MatLabFig_type_A(matLabFig_fp,plot=True)`
+62. function - 应用一维卷积，根据跳变点分割数据， `curve_segmentation_1DConvolution(data,threshold=1)`
+63. function - 根据索引，分割列表，`lst_index_split(lst, args)`
+64. function - 展平列表函数， `flatten_lst=lambda lst: [m for n_lst in lst for m in flatten_lst(n_lst)] if type(lst) is list else [lst]`
+65. function - 嵌套列表，子列表前后插值，`nestedlst_insert(nestedlst)`
+66. function - 使用matplotlib提供的方法随机返回浮点型RGB， `uniqueish_color()`
+67. function - 定义SIR传播模型微分方程， `SIR_deriv(y,t,N,beta,gamma,plot=False)`
+68. function - 显示图像以及颜色R值，或G,B值，`img_struc_show(img_fp,val='R',figsize=(7,7))`
+69. class - 定义基于SIR模型的二维卷积扩散，`class convolution_diffusion_img`
+70. function - 读入.gif，并动态显示，`animated_gif_show(gif_fp,figsize=(8,8))`
+71. fuction - 降采样二维数组，根据每一block内值得频数最大值，即最多出现得值为每一block的采样值，`downsampling_blockFreqency(array_2d,blocksize=[10,10])`
+72. class - SIR的空间传播模型， `SIR_spatialPropagating`
