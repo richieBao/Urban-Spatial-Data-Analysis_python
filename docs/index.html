@@ -74,46 +74,31 @@
         },
         plugins: [
             function (hook, vm) {
-                hook.doneEach(function () {
-                    // parse twemoji
-                    twemoji.parse(document);
-                    var label='', domObj, main, divEle, gitalk;
-                    var labels = vm.route.path.split('/');
-                    // if(labels && labels.startsWith('')
-                    if(labels.length) {
-                        for (let i = 0; i < labels.length; i++) {
-                            var v = labels[i]
-                            if(v && v !=='README') {
-                                label = v
-                                break;
-                            }
-                        }
-                    }
+                hook.doneEach(function() {
+                var label, domObj, main, divEle, gitalk;
+                label = vm.route.path.split("/").pop();
+                domObj = Docsify.dom;
+                main = domObj.getNode("#main");
 
-                    console.log('vm', vm)
-                    console.log('label', label)
-                    domObj = Docsify.dom;
-                    main = domObj.getNode("#main");
+                Array.apply(
+                    null,
+                    document.querySelectorAll("div.gitalk-container")
+                ).forEach(function(ele) {
+                    ele.remove();
+                });
 
-                    Array.apply(
-                        null,
-                        document.querySelectorAll("div.gitalk-container")
-                    ).forEach(function (ele) {
-                        ele.remove();
-                    });
-
-                    divEle = domObj.create("div");
-                    divEle.id = "gitalk-container-" + label;
-                    divEle.className = "gitalk-container";
-                    divEle.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;";
-                    domObj.appendTo(domObj.find(".content"), divEle);
-                    gitalk = new Gitalk(
-                        Object.assign(gitalkConfig, {id: !label ? "home" : label})
-                    );
-                    gitalk.render("gitalk-container-" + label);
+                divEle = domObj.create("div");
+                divEle.id = "gitalk-container-" + label;
+                divEle.className = "gitalk-container";
+                divEle.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;";
+                domObj.appendTo(domObj.find(".content"), divEle);
+                gitalk = new Gitalk(
+                    Object.assign(gitalkConfig, { id: !label ? "home" : label })
+                );
+                gitalk.render("gitalk-container-" + label);
                 });
             }
-        ],
+            ],
         
     }
 </script>
