@@ -807,3 +807,31 @@ def animated_gif_show(gif_fp,figsize=(8,8)):
 
     anim=animation.ArtistAnimation(fig, imgs, interval=300,repeat_delay=3000, blit=True)
     return HTML(anim.to_html5_video())
+
+def demo_con_style(a_coordi,b_coordi,ax,connectionstyle):
+    '''
+    function - 在matplotlib的子图中绘制连接线
+    reference - matplotlib官网Connectionstyle Demo
+
+    Paras:
+    a_coordi - a点的x，y坐标
+    b_coordi - b点的x，y坐标
+    ax - 子图
+    connectionstyle - 连接线的形式
+    '''
+    x1, y1=a_coordi[0],a_coordi[1]
+    x2, y2=b_coordi[0],b_coordi[1]
+
+    ax.plot([x1, x2], [y1, y2], ".")
+    ax.annotate("",
+                xy=(x1, y1), xycoords='data',
+                xytext=(x2, y2), textcoords='data',
+                arrowprops=dict(arrowstyle="->", color="0.5",
+                                shrinkA=5, shrinkB=5,
+                                patchA=None, patchB=None,
+                                connectionstyle=connectionstyle,
+                                ),
+                )
+
+    ax.text(.05, .95, connectionstyle.replace(",", ",\n"),
+            transform=ax.transAxes, ha="left", va="top")
