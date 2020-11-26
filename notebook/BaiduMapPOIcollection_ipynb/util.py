@@ -283,7 +283,7 @@ def is_outlier(data,threshold=3.5):
    MAD=np.median(abs(data-np.median(data)))
    modified_ZScore=0.6745*(data-np.median(data))/MAD
    #print(modified_ZScore)
-   is_outlier_bool=modified_ZScore>threshold    
+   is_outlier_bool=abs(modified_ZScore)>threshold    
    return is_outlier_bool,data[~is_outlier_bool]   
 
 
@@ -835,3 +835,6 @@ def demo_con_style(a_coordi,b_coordi,ax,connectionstyle):
 
     ax.text(.05, .95, connectionstyle.replace(",", ",\n"),
             transform=ax.transAxes, ha="left", va="top")
+
+'''展平列表函数'''
+flatten_lst=lambda lst: [m for n_lst in lst for m in flatten_lst(n_lst)] if type(lst) is list else [lst] 

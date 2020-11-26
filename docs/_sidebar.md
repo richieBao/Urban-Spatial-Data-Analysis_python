@@ -19,6 +19,7 @@
     * [2.12 点云数据（激光雷达）处理——分类数据，DSM，建筑高度提取，插值](./notebook_code/lidarData.md)
     * [2.13 卷积，SIR传播模型，成本栅格与物种散布，SIR空间传播模型](./notebook_code/convolution_SIR.md)
     * [2.14 微积分基础的代码表述](./notebook_code/calculus_code_graph.md)
+    * [2.15 聚类与城市色彩](./notebook_code/clustering_cityColor.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)
