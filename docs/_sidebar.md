@@ -20,6 +20,7 @@
     * [2.13 卷积，SIR传播模型，成本栅格与物种散布，SIR空间传播模型](./notebook_code/convolution_SIR.md)
     * [2.14 微积分基础的代码表述](./notebook_code/calculus_code_graph.md)
     * [2.15 聚类与城市色彩](./notebook_code/clustering_cityColor.md)
+    * [2.16 城市生活圈，DBSCAN连续距离聚类，卡方分布及独立性检验，协方差估计，信息熵与均衡度](./notebook_code/urban_lifeCircle.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)
