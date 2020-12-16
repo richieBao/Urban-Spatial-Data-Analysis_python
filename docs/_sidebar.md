@@ -21,6 +21,7 @@
     * [2.14 微积分基础的代码表述](./notebook_code/calculus_code_graph.md)
     * [2.15 聚类与城市色彩](./notebook_code/clustering_cityColor.md)
     * [2.16 城市生活圈，DBSCAN连续距离聚类，卡方分布及独立性检验，协方差估计，信息熵与均衡度](./notebook_code/urban_lifeCircle.md)
+    * [2.17 openCV-计算机视觉，特征提取，尺度空间（scale space），动态街景视觉感知](./notebook_code/openCV.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)
