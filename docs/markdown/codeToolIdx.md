@@ -98,3 +98,57 @@
 70. function - 读入.gif，并动态显示，`animated_gif_show(gif_fp,figsize=(8,8))`
 71. fuction - 降采样二维数组，根据每一block内值得频数最大值，即最多出现得值为每一block的采样值，`downsampling_blockFreqency(array_2d,blocksize=[10,10])`
 72. class - SIR的空间传播模型， `SIR_spatialPropagating`
+
+
+## 14. 微积分基础的代码表述
+73. function - 在matplotlib的子图中绘制多个连接线，`demo_con_style_multiple(a_coordi,b_coordi,ax,connectionstyle)`
+
+## 15.聚类与城市色彩
+74. function - 提取.kml文件中的坐标信息, `kml_coordiExtraction(kml_pathDict)`.
+75. function - 显示一个文件夹下所有图片，便于查看, `imgs_layoutShow(imgs_root,imgsFn_lst,columns,scale,figsize=(15,10))`
+76. function - 提取数码照片的属性信息和拍摄数据，即可交换图像文件格式（Exchangeable image file format，Exif）,`img_exif_info(img_fp,printing=True)`
+77. function - 将像素RGB颜色投射到色彩空间中，直观感受图像颜色的分布, `imgs_colorSpace(imgs_root,imgsFn_lst,columns,scale,figsize=(15,10))`.
+78. class - 定义K-Means算法, `class K_Means`.
+79. function - 读取与压缩图像，返回2，3维度数组, `img_rescale(img_path,scale)`.
+80. function - 聚类的方法提取图像主题色，并打印图像、聚类预测类的二维显示和主题色带, `img_theme_color(imgs_root,imgsFn_lst,columns,scale,)`.
+81. function - 显示所有图像主题色，获取总体印象, `themeColor_impression(theme_color)`.
+82. function - 保存文件,将文件存储为json数据格式, `save_as_json(array,save_root,fn)`.
+
+## 16.城市生活圈，DBSCAN连续距离聚类，卡方分布及独立性检验，协方差估计，信息熵与均衡度
+83. function - 提取分析所需数据，并转换为skleran的bunch存储方式，统一格式，方便读取. `poi_json2sklearn_bunch(fps,save_path)`
+84. class - 使用DBSCAN算法实现连续距离聚类和空间结构分析. `poi_spatial_distribution_structure` 
+
+包括：
+
+85. function - 打印数组频数. `frequency_array(slef,array)`
+86. function - 单次聚类. `clustering_DBSCAN(self,eps_single)`
+87. function - 根据聚类距离列表批量处理（聚类）. `clustering_batch_computing(self)`
+88. function - 保存聚类结果于.shp文件中,及打印一组预览. `poi2shp(self)`
+89. function - 卡方独立性检验，分析POI一级行业分类类标与聚类簇的相关性. `poi_chi_2Test(self)`
+90. unction - POI一级行业分类的业态结构. `POI_structure(self)`
+
+---
+
+91. function - 绘制折线图，及其拐点. `kneed_lineGraph(x,y)`
+92. class - 图片合并. `class combine_pics`
+
+包括：
+
+93. function - 方法用于返回指定的文件夹包含的文件或文件夹的名字的列表，按字母-数字顺序。 ·file_sorting(self·
+94. function - 读取与压缩图片. `read_compress_imgs(self,imgs_fp)`
+95. function - 建立文件夹，用于存储拼合的图片. `make_dir(self)`
+96. function - 拼合图片. `imgs_combination(self,imgs)`
+97. function - 计算POI的均衡都. `equilibriumDegree_hierarchy(poi_clustering,poi_columns,poi_label)`
+
+## 17. openCV-计算机视觉，特征提取，尺度空间（scale space），动态街景视觉感知
+
+98. function - 应用OpenCV计算高斯模糊，并给定滑动条调节参数, `Gaussion_blur(img_fp)`
+99. function - SIFT(scale invariant feature transform) 尺度不变特征变换)特征点检测, `SIFT_detection(img_fp,save=False)`
+100. function - 使用Star特征检测器提取图像特征, `STAR_detection(img_fp,save=False)`
+101. function - OpenCV 根据图像特征匹配图像。迁移官网的三种方法，1-ORB描述子蛮力匹配　Brute-Force Matching with ORB Descriptors；2－使用SIFT描述子和比率检测蛮力匹配 Brute-Force Matching with SIFT Descriptors and Ratio Test; 3-基于FLANN的匹配器 FLANN based Matcher, `feature_matching(img_1_fp,img_2_fp,index_params=None,method='FLANN')`
+102. function - 读取KITTI文件信息，1-包括经纬度，惯性导航系统信息等的.txt文件，2-包含时间戳的.txt文件，`KITTI_info(KITTI_info_fp,timestamps_fp`
+103.  function - 使用plotly的go.Scattermapbox方法，在地图上显示点及其连线，坐标为经纬度, `plotly_scatterMapbox(df,**kwargs)`
+104. class - 应用Star提取图像关键点，结合SIFT获得描述子，根据特征匹配分析特征变化（视觉感知变化），即动态街景视觉感知, `dynamicStreetView_visualPerception`
+105. class - 曲线（数据）平滑，与寻找曲线水平和纵向的斜率变化点, `movingAverage_inflection`
+106. function - 计算图像匹配特征点几乎无关联的距离，即对特定位置视觉随距离远去而感知消失的距离, `vanishing_position_length(matches_num,coordi_df,epsg,**kwargs)`
+
