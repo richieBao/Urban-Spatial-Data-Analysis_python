@@ -141,7 +141,6 @@
 97. function - 计算POI的均衡都. `equilibriumDegree_hierarchy(poi_clustering,poi_columns,poi_label)`
 
 ## 17. openCV-计算机视觉，特征提取，尺度空间（scale space），动态街景视觉感知
-
 98. function - 应用OpenCV计算高斯模糊，并给定滑动条调节参数, `Gaussion_blur(img_fp)`
 99. function - SIFT(scale invariant feature transform) 尺度不变特征变换)特征点检测, `SIFT_detection(img_fp,save=False)`
 100. function - 使用Star特征检测器提取图像特征, `STAR_detection(img_fp,save=False)`
@@ -152,3 +151,10 @@
 105. class - 曲线（数据）平滑，与寻找曲线水平和纵向的斜率变化点, `movingAverage_inflection`
 106. function - 计算图像匹配特征点几乎无关联的距离，即对特定位置视觉随距离远去而感知消失的距离, `vanishing_position_length(matches_num,coordi_df,epsg,**kwargs)`
 
+## 18. [SQLite]数据库，[Flask] 构建实验用网络应用平台，逆向工程，视觉感知-基于图像的空间分类
+107. function - pandas方法把DataFrame格式数据写入数据库（同时创建表）, `df2SQLite(engine,df,table,method='fail')`
+108. function - 按字典的键，成对匹配，返回用于写入SQLite数据库的列表, `zip_dic_tableSQLite(dic,table_model)`
+109. class - 返回指定路径下所有文件夹及其下文件的结构。代码未改动，迁移于'https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python', `DisplayablePath(object)`
+110. function - 使用OpenCV的方法压缩保存图像  , `imgs_compression_cv(imgs_root,imwrite_root,imgsPath_fp,gap=1,png_compression=9,jpg_quality=100)`
+111. function - 读取KITTI文件信息，1-包括经纬度，惯性导航系统信息等的.txt文件。只返回经纬度、海拔信息, `KITTI_info_gap(KITTI_info_fp,save_fp,gap=1)`
+112. function - 将KITTI图像路径与经纬度信息对应起来，并存入SQLite数据库, `KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field,method='fail')`
