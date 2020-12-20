@@ -1357,7 +1357,7 @@ def KITTI_info_gap(KITTI_info_fp,save_fp,gap=1):
 
     return drive_info_coordi
 
-def KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field,method='fail'):
+def KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,table,method='fail'):
     from pathlib import Path
     import pandas as pd
     from sqlalchemy import create_engine  
@@ -1376,7 +1376,7 @@ def KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field,method='fail'
     imgsPath=pd.read_pickle(imgsPath_fp)
     #flask Jinja的url_for仅支持'/,因此需要替换'\\'
     imgsPath_replace=imgsPath.imgs_fp.apply(lambda row:str(Path(replace_path).joinpath(Path(row).name)).replace('\\','/'))
-    print(imgsPath_replace)
+    # print(imgsPath_replace)
     info=pd.read_pickle(info_fp)
     imgs_df=pd.concat([imgsPath_replace,info],axis=1)
     # print(imgs_df)
@@ -1384,31 +1384,66 @@ def KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field,method='fail'
     engine=create_engine('sqlite:///'+'\\\\'.join(db_fp.split('\\')),echo=True)     
     # print(engine)
     # print("_"*50)
+       
     try:
-        imgs_df.to_sql('%s'%field,con=engine,if_exists="%s"%method)
+        imgs_df.to_sql('%s'%table,con=engine,index=False,if_exists="%s"%method)
         print("if_exists=%s:------Data has been written to the database!"%method)
     except:
-        print("_"*15,'the %s table has been existed...'%field)
+        print("_"*15,'the %s table has been existed...'%table)
 
 
 if __name__=="__main__":
-    #A - 使用OpenCV的方法压缩保存图像  
-    # imgs_root=r'D:\dataset\KITTI\2011_09_26_drive_0009_sync\image_03\data'
-    # imwrite_root=r'D:\dataset\KITTI\imgs_compression\imgs_2011_09_26_drive_0009_sync'
-    # imgsPath_fp=r'D:\dataset\KITTI\imgs_compression\imgsPath_2011_09_26_drive_0009_sync.pkl'
-    # imgs_save_fp=imgs_compression_cv(imgs_root,imwrite_root,imgsPath_fp,gap=10)
-    
-    #B - 读取KITTI经纬度信息，可以指定间隔提取距离
-    # KITTI_info_fp=r'D:\dataset\KITTI\2011_09_26_drive_0009_sync\oxts\data'
-    # save_fp=r'D:\dataset\KITTI\imgs_compression\info_2011_09_26_drive_0009_sync.pkl'
-    # drive_info=KITTI_info_gap(KITTI_info_fp,save_fp,gap=10)
-    
-    #C - 将文件路径信息写入数据库
-    imgsPath_fp=r'D:\dataset\KITTI\imgs_compression\imgsPath_2011_09_26_drive_0009_sync.pkl'
-    info_fp=r'D:\dataset\KITTI\imgs_compression\info_2011_09_26_drive_0009_sync.pkl'
-    replace_path=r'static\KITTI\imgs_2011_09_26_drive_0009_sync'
-    db_fp=r'C:\Users\richi\omen-richiebao_s\omen_github\caDesign_ExperimentPlatform\data-dev.sqlite'
-    KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field='vp_imgs',method="append")  
+    imgs_paths=[r'2011_09_26_drive_0009_sync',
+                r'2011_09_29_drive_0071_sync',
+                r'2011_09_28_drive_0001_sync',
+                r'2011_09_29_drive_0026_sync',
+                r'2011_09_28_drive_0002_sync',
+                r'2011_09_26_drive_0117_sync',
+                r'2011_09_26_drive_0113_sync',
+                r'2011_09_26_drive_0106_sync',
+                r'2011_09_26_drive_0104_sync',
+                r'2011_09_26_drive_0096_sync',
+                r'2011_09_26_drive_0095_sync',
+                r'2011_09_26_drive_0093_sync',
+                r'2011_09_26_drive_0084_sync',
+                r'2011_09_26_drive_0060_sync',
+                r'2011_09_26_drive_0059_sync',
+                r'2011_09_26_drive_0057_sync',
+                r'2011_09_26_drive_0056_sync',
+                r'2011_09_26_drive_0051_sync',
+                r'2011_09_26_drive_0048_sync',
+                r'2011_09_26_drive_0018_sync',
+                r'2011_09_26_drive_0017_sync',
+                r'2011_09_26_drive_0014_sync',
+                r'2011_09_26_drive_0013_sync',
+                r'2011_09_26_drive_0011_sync',
+                r'2011_09_26_drive_0005_sync',
+                r'2011_09_26_drive_0002_sync',                
+                ]
+    g=10
+    i=0
+    for p in imgs_paths:
+        print("\n%d-%s---处理中..."%(-(len(imgs_paths[1:])-i),p))
+        imgs_path=p
+        #A - 使用OpenCV的方法压缩保存图像 
+        imgs_root=r'D:\dataset\KITTI\%s\image_03\data'%imgs_path
+        imwrite_root=r'D:\dataset\KITTI\imgs_compression\%s'%imgs_path
+        imgsPath_fp=r'D:\dataset\KITTI\imgs_compression\imgsPath_%s.pkl'%imgs_path
+        imgs_save_fp=imgs_compression_cv(imgs_root,imwrite_root,imgsPath_fp,gap=g)
+        
+        #B - 读取KITTI经纬度信息，可以指定间隔提取距离
+        KITTI_info_fp=r'D:\dataset\KITTI\%s\oxts\data'%imgs_path
+        save_fp=r'D:\dataset\KITTI\imgs_compression\info_%s.pkl'%imgs_path
+        drive_info=KITTI_info_gap(KITTI_info_fp,save_fp,gap=g)
+        
+        #C - 将文件路径信息写入数据库
+        imgsPath_fp=r'D:\dataset\KITTI\imgs_compression\imgsPath_%s.pkl'%imgs_path
+        info_fp=r'D:\dataset\KITTI\imgs_compression\info_%s.pkl'%imgs_path
+        replace_path=r'KITTI\%s'%imgs_path
+        db_fp=r'C:\Users\richi\omen-richiebao_s\omen_github\caDesign_ExperimentPlatform\data-dev.sqlite'
+        KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,table='vp_imgs',method="append") 
+        
+        i+=1
 ```
 
 
