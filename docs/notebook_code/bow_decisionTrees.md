@@ -904,7 +904,7 @@ clf=decisionTree_structure(X,y)
 
 
     
-<a href=""><img src="./imgs/19_06.png" height='auto' width='500' title="caDesign"></a>
+<a href=""><img src="./imgs/19_06.png" height='auto' width='250' title="caDesign"></a>
     
 
 

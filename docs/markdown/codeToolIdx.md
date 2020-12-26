@@ -158,3 +158,27 @@
 110. function - 使用OpenCV的方法压缩保存图像  , `imgs_compression_cv(imgs_root,imwrite_root,imgsPath_fp,gap=1,png_compression=9,jpg_quality=100)`
 111. function - 读取KITTI文件信息，1-包括经纬度，惯性导航系统信息等的.txt文件。只返回经纬度、海拔信息, `KITTI_info_gap(KITTI_info_fp,save_fp,gap=1)`
 112. function - 将KITTI图像路径与经纬度信息对应起来，并存入SQLite数据库, `KITTI_info2sqlite(imgsPath_fp,info_fp,replace_path,db_fp,field,method='fail')`
+
+
+## 19. 视觉词袋（BOW），决策树（Decision trees）->随机森林（Random forests），交叉验证 cross_val_score，视觉感知-图像分类_识别器，网络实验平台服务器端部署
+
+113. function - 按照分类提取图像路径与规律, `load_training_data(imgs_df,classi_field,classi_list,path_field)`
+114. class - 根据所有图像关键点描述子聚类建立图像视觉词袋，获取每一图像的特征（码本）映射的频数统计, `feature_builder_BOW`
+
+包括：
+
+115. function - 提取图像特征, `extract_features(self,img)`
+116. function - 聚类所有图像的特征（描述子/SIFT），建立视觉词袋, `visual_BOW(self,des_all)`
+117. function - 提取图像特征，返回所有图像关键点聚类视觉词袋, `get_visual_BOW(self,training_data)`
+118. uction - 归一化数据, ` normalize(self,input_data)`
+119. function - 使用聚类的视觉词袋构建图像特征（构造码本）, `construct_feature(self,img,kmeans)`
+120. function - 返回每个图像的特征映射（码本映射）, `get_feature_map(self,training_data,kmeans)`
+
+---
+
+121. function - 根据指定的（多个）列，将分类转换为整数表示，区间为[0,分类数-1], ``df_multiColumns_LabelEncoder(df,columns=None)
+122. function - 计算信息熵分量, `entropy_compomnent(numerator,denominator)`
+123. function - 计算信息增量(IG), `IG(df_dummies)`
+124. function - 使用决策树分类，并打印决策树流程图表。迁移于Sklearn的'Understanding the decision tree structure', https://scikit-learn.org/stable/auto_examples/tree/plot_unveil_tree_structure.html#sphx-glr-auto-examples-tree-plot-unveil-tree-structure-py, `decisionTree_structure(X,y,criterion='entropy',cv=None,figsize=(6, 6))`
+125. class - 用极端随机森林训练图像分类器, `ERF_trainer`
+126. class - 图像识别器，基于图像分类模型，视觉词袋以及图像特征, `ImageTag_extractor`
