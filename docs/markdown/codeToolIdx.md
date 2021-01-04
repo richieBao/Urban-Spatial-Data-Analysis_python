@@ -182,3 +182,15 @@
 124. function - 使用决策树分类，并打印决策树流程图表。迁移于Sklearn的'Understanding the decision tree structure', https://scikit-learn.org/stable/auto_examples/tree/plot_unveil_tree_structure.html#sphx-glr-auto-examples-tree-plot-unveil-tree-structure-py, `decisionTree_structure(X,y,criterion='entropy',cv=None,figsize=(6, 6))`
 125. class - 用极端随机森林训练图像分类器, `ERF_trainer`
 126. class - 图像识别器，基于图像分类模型，视觉词袋以及图像特征, `ImageTag_extractor`
+
+## 20. 从解析解(analytical solution)-->到数值解(numerical solution) | 从机器学习[scikit-learn](https://scikit-learn.org/stable/)-->到深度学习[pytorch](https://PyTorch.org/)
+
+127. function - sigmoid函数, `sigmoid(x)`
+128. function - 定义总误差偏导, `partialD_E_total_prediction(true_value_,predicted_value_)`
+129. function -定义激活函数偏导, `partialD_activation(x)`
+130. fucntion - 定义加权和偏导, `partialD_weightedSUM(w_)`
+131. function - 三层神经网络，各层2个神经元的示例，前向传播函数, `forward_func(input_list,weight_list,bias_list,output_list)`
+132. class - 每一神经元的输入加权和、激活函数，以及输出计算, `NEURON`
+133. class - 神经网络每一层的定义, `NEURAL_LAYER`
+134. class - 构建多层感知机（神经网络）, ` NEURAL_NETWORK`
+135. PyTorch自定义激活函数、模型、损失函数及梯度下降法, `sigmoid(X), net(X), loss(y_hat,y)`
