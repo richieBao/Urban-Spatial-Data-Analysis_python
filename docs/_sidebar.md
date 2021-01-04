@@ -24,6 +24,7 @@
     * [2.17 openCV-计算机视觉，特征提取，尺度空间（scale space），动态街景视觉感知](./notebook_code/openCV.md)
     * [2.18 SQLite数据库，Flask构建实验用网络应用平台，逆向工程](./notebook_code/sqlite.md)
     * [2.19 视觉词袋（BOW），决策树（Decision trees）->随机森林（Random forests），交叉验证 cross_val_score，视觉感知-图像分类_识别器，网络实验平台服务器端部署](./notebook_code/bow_decisionTrees.md)
+    * [2.20 从解析解(analytical solution)-->到数值解(numerical solution) | 从机器学习scikit-learn-->到深度学习pytorch](./notebook_code/pytorch.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)

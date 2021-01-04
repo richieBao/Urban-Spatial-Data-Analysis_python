@@ -968,3 +968,185 @@ class feature_builder_BOW:
                 feature_map.append(temp_dict)
         #print(feature_map[0]['feature_vector'].shape,feature_map[0])
         return feature_map    
+    
+from pathlib import Path
+
+class DisplayablePath(object):
+    '''
+    class - 返回指定路径下所有文件夹及其下文件的结构。代码未改动，迁移于'https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python'
+    '''
+
+    display_filename_prefix_middle = '├──'
+    display_filename_prefix_last = '└──'
+    display_parent_prefix_middle = '    '
+    display_parent_prefix_last = '│   '
+
+    def __init__(self, path, parent_path, is_last):
+        self.path = Path(str(path))
+        self.parent = parent_path
+        self.is_last = is_last
+        if self.parent:
+            self.depth = self.parent.depth + 1
+        else:
+            self.depth = 0
+
+    @property
+    def displayname(self):
+        if self.path.is_dir():
+            return self.path.name + '/'
+        return self.path.name
+
+    @classmethod
+    def make_tree(cls, root, parent=None, is_last=False, criteria=None):
+        root = Path(str(root))
+        criteria = criteria or cls._default_criteria
+
+        displayable_root = cls(root, parent, is_last)
+        yield displayable_root
+
+        children = sorted(list(path
+                               for path in root.iterdir()
+                               if criteria(path)),
+                          key=lambda s: str(s).lower())
+        count = 1
+        for path in children:
+            is_last = count == len(children)
+            if path.is_dir():
+                yield from cls.make_tree(path,
+                                         parent=displayable_root,
+                                         is_last=is_last,
+                                         criteria=criteria)
+            else:
+                yield cls(path, displayable_root, is_last)
+            count += 1
+
+    @classmethod
+    def _default_criteria(cls, path):
+        return True
+
+    @property
+    def displayname(self):
+        if self.path.is_dir():
+            return self.path.name + '/'
+        return self.path.name
+
+    def displayable(self):
+        if self.parent is None:
+            return self.displayname
+
+        _filename_prefix = (self.display_filename_prefix_last
+                            if self.is_last
+                            else self.display_filename_prefix_middle)
+
+        parts = ['{!s} {!s}'.format(_filename_prefix,
+                                    self.displayname)]
+
+        parent = self.parent
+        while parent and parent.parent is not None:
+            parts.append(self.display_parent_prefix_middle
+                         if parent.is_last
+                         else self.display_parent_prefix_last)
+            parent = parent.parent
+
+        return ''.join(reversed(parts))    
+
+"""
+# Code adapted from:
+# https://github.com/facebookresearch/Detectron/blob/master/detectron/utils/collections.py
+
+Source License
+# Copyright (c) 2017-present, Facebook, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##############################################################################
+#
+# Based on:
+# --------------------------------------------------------
+# Fast R-CNN
+# Copyright (c) 2015 Microsoft
+# Licensed under The MIT License [see LICENSE for details]
+# Written by Ross Girshick
+# --------------------------------------------------------
+"""
+
+class AttrDict(dict):
+
+    IMMUTABLE = '__immutable__'
+
+    def __init__(self, *args, **kwargs):
+        super(AttrDict, self).__init__(*args, **kwargs)
+        self.__dict__[AttrDict.IMMUTABLE] = False
+
+    def __getattr__(self, name):
+        if name in self.__dict__:
+            return self.__dict__[name]
+        elif name in self:
+            return self[name]
+        else:
+            raise AttributeError(name)
+
+    def __setattr__(self, name, value):
+        if not self.__dict__[AttrDict.IMMUTABLE]:
+            if name in self.__dict__:
+                self.__dict__[name] = value
+            else:
+                self[name] = value
+        else:
+            raise AttributeError(
+                'Attempted to set "{}" to "{}", but AttrDict is immutable'.
+                format(name, value)
+            )
+
+    def immutable(self, is_immutable):
+        """Set immutability to is_immutable and recursively apply the setting
+        to all nested AttrDicts.
+        """
+        self.__dict__[AttrDict.IMMUTABLE] = is_immutable
+        # Recursively set immutable state
+        for v in self.__dict__.values():
+            if isinstance(v, AttrDict):
+                v.immutable(is_immutable)
+        for v in self.values():
+            if isinstance(v, AttrDict):
+                v.immutable(is_immutable)
+
+    def is_immutable(self):
+        return self.__dict__[AttrDict.IMMUTABLE]    
+    
+def imgs_layoutShow(imgs_root,imgsFn_lst,columns,scale,figsize=(15,10)):
+    import math,os
+    import matplotlib.pyplot as plt
+    from PIL import Image
+    '''
+    function - 显示一个文件夹下所有图片，便于查看。
+
+    Paras:
+    imgs_root - 图像所在根目录
+    imgsFn_lst - 图像名列表
+    columns - 列数
+    '''
+    rows=math.ceil(len(imgsFn_lst)/columns)
+    fig,axes=plt.subplots(rows,columns,sharex=True,sharey=True,figsize=figsize)   #布局多个子图，每个子图显示一幅图像
+    ax=axes.flatten()  #降至1维，便于循环操作子图
+    for i in range(len(imgsFn_lst)):
+        img_path=os.path.join(imgs_root,imgsFn_lst[i]) #获取图像的路径
+        img_array=Image.open(img_path) #读取图像为数组，值为RGB格式0-255        
+        img_resize=img_array.resize([int(scale * s) for s in img_array.size] ) #传入图像的数组，调整图片大小
+        ax[i].imshow(img_resize)  #显示图像
+        ax[i].set_title(i+1)
+    fig.tight_layout() #自动调整子图参数，使之填充整个图像区域  
+    fig.suptitle("images show",fontsize=14,fontweight='bold',y=1.02)
+    plt.show()
+
+    
+    
