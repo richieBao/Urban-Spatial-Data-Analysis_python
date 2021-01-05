@@ -1139,7 +1139,339 @@ print("参数(权值+偏置)更新结果：\nparams_={}".format(params_))
     params_=[tensor([[0.1463, 0.1954],
             [0.2427, 0.2907]], requires_grad=True), tensor([0.2770, 0.2573], requires_grad=True), tensor([[0.0102, 0.3532],
             [0.1094, 0.4529]], requires_grad=True), tensor([-0.0585,  0.4366], requires_grad=True)]
+
+
+
+### 1.7 [runx.logx](https://github.com/NVIDIA/runx#introduction--a-simple-example)-深度学习实验管理/Deep Learning Experiment Management+模型构建
+runx是NVIDIA开源的一款深度学习实验管理工具。可以帮助深度学习研究者自动执行一些常见的任务。例如参数扫描，输出日志记录，保存训练模型等。该库包括3个模块，runx,logx以及sumx。其中最为常用的是logx模块，可以应用`logx.metric()`保存metrics(字典格式保存的指定评估参数等，例如损失函数值，学习率等)；应用`logx.msg()`保存message（任意指定的信息）；应用`logx.save_model()`保存模型checkpoint，并可以指定一个模型精度评估指标，保存精度最好的模型； 以及初始化时配置`tensorboard=True`，写入tensorboard文件，可以应用tensorboard打开训练时的一些信息图表，例如损失曲线，学习率，输入输出图片(`logx.add_image()`)，卷积核的参数分布等。这些信息能够帮助监督网络的训练过程，为参数优化提供帮助。logx保存文件位于指定的文件夹下，包括'best_checkpoint_ep1000.pth','last_checkpoint_ep1000.pth‘网络模型，logging.log日志，metrics.csv评估参数，以及'events.out.tfevents.1609820463.LAPTOP-GH6EM1TC'文件。
+
+下述代码也涵盖了模型构建的几种方法，包括继承nn.Module类构造模型，使用nn.Sequential类构造模型（又包括.add_module方式和OrderedDict方式），使用nn-ModuleList类构造模型，以及使用nn.ModuleDict类构造模型。其中优先使用nn.Sequential类构造模型方法，如果需要增加模型构造的灵活性，可以使用继承nn.Module类构造模型。
+
+在生成数据集时，是使用了一个二元一次函数根据随机生成的特征值（特征数为2，即输入值）生成对应的类标（即输出值）。但是在神经网络模型构建时，并未使用单纯的一个线性模型，而是构建了线性模型-->激活函数-->线性模型的神经网络结构，用以说明模型构建的方法。如果希望验证一个层线性回归的参数是否与生成数据集类标的方程权值和偏置趋于一致，可以仅保留第一个线性模型，而移除激活函数以及第2个线性模型。
+
+将数据集划分了训练数据集和验证数据集，在训练过程中的每一epoch增加了验证数据集根据已训练的网络预测输出值，并应用损失函数-`nn.MSELoss()`均方误差的累加和用于网络评估。
+
+
+```python
+import torch
+from runx.logx import logx
+import torch.utils.data as Data
+from torch import nn
+import numpy as np
+from runx.logx import logx
+
+#初始化logx
+logx.initialize(logdir="./logs/",     #指定日志文件保持路径（如果不指定，则自动创建）
+                coolname=True,        #是否在logdir下生成一个独有的目录
+                hparams=None,         #配合runx使用，保存超参数
+                tensorboard=True,     #是否自动写入tensorboard文件
+                no_timestamp=False,   #是否不启用时间戳命名
+                global_rank=0,        
+                eager_flush=True,     
+               ) 
+
+#A-生成数据集
+num_inputs=2 #包含的特征数
+num_examples=5000
+true_w=[3,-2.3]
+true_b=5.9
+features=torch.tensor(np.random.normal(0, 1, (num_examples, num_inputs)), dtype=torch.float)
+labels=true_w[0]*features[:, 0]+true_w[1]*features[:, 1]+true_b #由回归方程：y=w1*x1+-w2*x2+b，计算输出值
+labels+=torch.tensor(np.random.normal(0, 0.01, size=labels.size()), dtype=torch.float) #变化输出值
+logx.msg(r"the expression generating labels:w1*x1+-w2*x2+b") #可以将需要查看的对象以文本的形式保存在logging.log文件，此处保存了生成类标的线性方程
+
+#B-读取数据（小批量-随机读取指定数量/batch_size的样本）
+batch_size=100
+dataset=Data.TensorDataset(features,labels) #建立PyTorch格式的数据集(组合输入与输出值)
+train_size, val_size=[4000,1000]
+train_dataset, val_dataset=torch.utils.data.random_split(dataset, [train_size, val_size])
+train_data_iter=Data.DataLoader(train_dataset,batch_size,shuffle=True) #随机读取小批量
+val_data_iter=Data.DataLoader(val_dataset,batch_size,shuffle=True)
+
+
+#C-定义模型
+#方法-01-继承nn.Module类构造模型
+class MLP(nn.Module): #继承nn.Module父类
+    #声明带有模型参数的层
+    def __init__(self,n_feature):
+        super(MLP,self).__init__()
+        self.hidden=nn.Linear(n_feature,2) #隐藏层,torch.nn.Linear(in_features: int, out_features: int, bias: bool = True)，参数指定特征数（输入），以及类标数（输出）
+        self.activation=nn.ReLU() #激活层
+        self.output=nn.Linear(2,1) #输出层
+        
+    #定义前向传播，根据输入x计算返回所需要的模型输出
+    def forward(self,x):
+        y=self.activation(self.hidden(x))
+        return self.output(y)
+net=MLP(num_inputs)
+print("nn.Module构造模型：")
+logx.msg("net:{}".format(net)) #此处保存了神经网络结构
+print("_"*50)
+
+#方法-02-使用nn.Sequential类构造模型。
+net_sequential=nn.Sequential(
+    nn.Linear(num_inputs,2),
+    nn.ReLU(),
+    nn.Linear(2,1)
+    )
+print("nn.Sequential构造模型：",net_sequential)
+
+#nn.Sequential的.add_module方式
+net_sequential_=nn.Sequential() 
+net_sequential_.add_module('hidden',nn.Linear(num_inputs,2))
+net_sequential_.add_module('activation',nn.ReLU())
+net_sequential_.add_module("output",nn.Linear(2,1))
+print("nn.Sequential()-->.add_module方式：",net_sequential_)
+
+#nn.Sequential的OrderedDict方式
+from collections import OrderedDict
+net_sequential_orderDict=nn.Sequential(
+    OrderedDict([
+        ('hidden',nn.Linear(num_inputs,2)),
+        ('activation',nn.ReLU()),
+        ("output",nn.Linear(2,1))
+    ])
+    )
+print("nn.Sequential-->OrderedDict方式：",net_sequential_orderDict)
+print("_"*50)
+
+#方法-03-使用nn-ModuleList类构造模型。注意nn.ModuleList仅仅是一个存储各类模块的列表，这些模块之间没有联系，也没有顺序，没有实现forward功能，但是加入到nn.ModuleList中模块的参数会被自动添加到整个网络。
+net_moduleList=nn.ModuleList([nn.Linear(num_inputs,2),nn.ReLU()])
+net_moduleList.append(nn.Linear(2,1)) #可以像列表已有追加层
+print("nn.ModuleList构造模型：",net_moduleList)
+print("_"*50)
+
+#方法-04-使用nn.ModuleDict类构造模型。注意nn.ModuleDict与nn.ModuleList类似，模块间没有关联，没有实现forward功能，但是参数会被自动添加到整个网络中。
+net_moduleDict=nn.ModuleDict({
+    'hidden':nn.Linear(num_inputs,2),
+    'activation':nn.ReLU()    
+    })
+net_moduleDict['output']=nn.Linear(2,1) #象字典一样添加模块
+print("nn.ModuleDict构造模型：",net_moduleDict)
+print("_"*50)
+
+#D-查看参数
+for param in net.parameters():
+    print(param)
+print("_"*50)
+
+#E-初始化模型参数
+from torch.nn import init
+init.normal_(net.hidden.weight,mean=0,std=0.01) #权值初始化为均值为0，标准差为0.01的正态分布。如果是用net_sequential,则可以使用net[0].weight指定权值，如果层自定义了名称，则可以用.layerName来指定
+init.constant_(net.hidden.bias,val=0) #偏置初始化为0
+
+print("初始化参数后：")
+for param in net.parameters():
+    print(param)
+print("_"*50)
+
+#F-定义损失函数
+loss=nn.MSELoss()
+
+#J-定义优化算法
+import torch.optim as optim
+optimizer=optim.SGD(net.parameters(),lr=0.03)
+print("optimizer:",optimizer)
+
+#配置不同的学习率-方法-01
+optimizer_=optim.SGD([                
+                {'params': net.hidden.parameters(),'lr':0.03},  
+                {'params': net.output.parameters(), 'lr':0.01}
+            ], lr=0.02) # 如果对某个参数不指定学习率，就使用最外层的默认学习率
+print("配置不同的学习率-optimizer_:",optimizer_)
+
+#配置不同的学习率-方法-02-新建优化器
+for param_group in optimizer_.param_groups:
+    param_group['lr'] *= 0.1 # 学习率为之前的0.1倍
+print("新建优化器调整学习率-optimizer_:",optimizer_)
+print("_"*50)
+
+#H-训练模型
+num_epochs=1000
+best_loss=np.inf
+for epoch in range(1,num_epochs+1):
+    loss_acc_val=0
+    for X,y in train_data_iter:
+        output=net(X)
+        l=loss(output,y.view(-1,1))
+        optimizer.zero_grad() #梯度清零，
+        l.backward()
+        optimizer.step()      
     
+    #验证数据集，计算预测值与真实值之间的均方误差累加和（用MSELoss损失函数）
+    with torch.no_grad():
+        for X_,y_ in val_data_iter:
+            y_pred=net(X_)
+            valid_loss=loss(y_pred,y_.view(-1,1))
+            loss_acc_val+=valid_loss 
+        
+    #print('epoch %d, loss: %f' % (epoch, l.item()))  
+    if epoch%100==0:
+        logx.msg('epoch %d, loss: %f' % (epoch, l.item())) #logx.msg也会打印待保存的结果，因此注释掉上行的print
+        print("验证数据集-精度-loss：{}".format(loss_acc_val))
+    
+    metrics={'loss':l.item() ,
+            'lr':optimizer.param_groups[-1]['lr']}
+    curr_iter=epoch*len(train_data_iter)
+    #print("+"*50)
+    #print(metrics,curr_iter)
+    logx.metric(phase="train",metrics=metrics,epoch=curr_iter) #对传入字典中的数据进行保存记录，参数phase可以选择'train'和'val'；参数metrics为传入的字典；参数epoch表示全局轮次。若开启了tensorboard则自动增加。
+    
+    if loss_acc_val<best_loss:
+        best_loss=loss_acc_val
+    save_dict={"state_dict":net.state_dict(),
+              'epoch':epoch+1,
+              'optimizer':optimizer.state_dict()
+              }
+    ''' logx.save_model在JupyterLab环境下运行目前会出错，可以在Spyder下运行
+    logx.save_model(
+        save_dict=save_dict,     #checkpoint字典形式保存，包括epoch，state_dict等信息
+        metric=best_loss,        #保存评估指标
+        epoch=epoch,             #当前轮次
+        higher_better=False,     #是否更高更好，例如准确率
+        delete_old=True          #是否删除旧模型
+        )
+    '''
+```
+
+    the expression generating labels:w1*x1+-w2*x2+b
+    nn.Module构造模型：
+    net:MLP(
+      (hidden): Linear(in_features=2, out_features=2, bias=True)
+      (activation): ReLU()
+      (output): Linear(in_features=2, out_features=1, bias=True)
+    )
+    __________________________________________________
+    nn.Sequential构造模型： Sequential(
+      (0): Linear(in_features=2, out_features=2, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=2, out_features=1, bias=True)
+    )
+    nn.Sequential()-->.add_module方式： Sequential(
+      (hidden): Linear(in_features=2, out_features=2, bias=True)
+      (activation): ReLU()
+      (output): Linear(in_features=2, out_features=1, bias=True)
+    )
+    nn.Sequential-->OrderedDict方式： Sequential(
+      (hidden): Linear(in_features=2, out_features=2, bias=True)
+      (activation): ReLU()
+      (output): Linear(in_features=2, out_features=1, bias=True)
+    )
+    __________________________________________________
+    nn.ModuleList构造模型： ModuleList(
+      (0): Linear(in_features=2, out_features=2, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=2, out_features=1, bias=True)
+    )
+    __________________________________________________
+    nn.ModuleDict构造模型： ModuleDict(
+      (hidden): Linear(in_features=2, out_features=2, bias=True)
+      (activation): ReLU()
+      (output): Linear(in_features=2, out_features=1, bias=True)
+    )
+    __________________________________________________
+    Parameter containing:
+    tensor([[-0.3995, -0.0165],
+            [ 0.3065, -0.0651]], requires_grad=True)
+    Parameter containing:
+    tensor([0.3005, 0.4148], requires_grad=True)
+    Parameter containing:
+    tensor([[-0.7020, -0.0650]], requires_grad=True)
+    Parameter containing:
+    tensor([0.4247], requires_grad=True)
+    __________________________________________________
+    初始化参数后：
+    Parameter containing:
+    tensor([[-0.0142, -0.0086],
+            [-0.0022,  0.0051]], requires_grad=True)
+    Parameter containing:
+    tensor([0., 0.], requires_grad=True)
+    Parameter containing:
+    tensor([[-0.7020, -0.0650]], requires_grad=True)
+    Parameter containing:
+    tensor([0.4247], requires_grad=True)
+    __________________________________________________
+    optimizer: SGD (
+    Parameter Group 0
+        dampening: 0
+        lr: 0.03
+        momentum: 0
+        nesterov: False
+        weight_decay: 0
+    )
+    配置不同的学习率-optimizer_: SGD (
+    Parameter Group 0
+        dampening: 0
+        lr: 0.03
+        momentum: 0
+        nesterov: False
+        weight_decay: 0
+    
+    Parameter Group 1
+        dampening: 0
+        lr: 0.01
+        momentum: 0
+        nesterov: False
+        weight_decay: 0
+    )
+    新建优化器调整学习率-optimizer_: SGD (
+    Parameter Group 0
+        dampening: 0
+        lr: 0.003
+        momentum: 0
+        nesterov: False
+        weight_decay: 0
+    
+    Parameter Group 1
+        dampening: 0
+        lr: 0.001
+        momentum: 0
+        nesterov: False
+        weight_decay: 0
+    )
+    __________________________________________________
+    epoch 100, loss: 0.000117
+    验证数据集-精度-loss：0.07787404209375381
+    epoch 200, loss: 0.000105
+    验证数据集-精度-loss：0.03207176923751831
+    epoch 300, loss: 0.000074
+    验证数据集-精度-loss：0.016309896484017372
+    epoch 400, loss: 0.000103
+    验证数据集-精度-loss：0.009164282120764256
+    epoch 500, loss: 0.000116
+    验证数据集-精度-loss：0.0055949147790670395
+    epoch 600, loss: 0.000108
+    验证数据集-精度-loss：0.003492299932986498
+    epoch 700, loss: 0.000089
+    验证数据集-精度-loss：0.0021637314930558205
+    epoch 800, loss: 0.000128
+    验证数据集-精度-loss：0.0014685962814837694
+    epoch 900, loss: 0.000128
+    验证数据集-精度-loss：0.0011613850947469473
+    epoch 1000, loss: 0.000111
+    验证数据集-精度-loss：0.0012093255063518882
+    
+
+
+```python
+print("params_hidden:{}\nbias:{}\nparams_output:{}\nbias:{}".format(net.hidden.weight,net.hidden.bias,net.output.weight,net.output.bias))
+```
+
+    params_hidden:Parameter containing:
+    tensor([[ 0.9073, -0.6878],
+            [-0.5067,  0.4085]], requires_grad=True)
+    bias:Parameter containing:
+    tensor([2.4939, 0.8909], requires_grad=True)
+    params_output:Parameter containing:
+    tensor([[ 2.7124, -1.0936]], requires_grad=True)
+    bias:Parameter containing:
+    tensor([0.1000], requires_grad=True)
+    
+
+在cmd命令行中输入`tensorboard --logdir=logs`可以根据提示在`http://localhost:6006/`页面下打开tensorboard，并显示以下损失曲线和学习率的图表。
+
+<a href=""><img src="./imgs/20_04.png" height='auto' width='1200' title="caDesign"></a>  
+
 
 > 更多Pytorch深度学习的内容推荐其官方的[教程和案例](https://pytorch.org/tutorials/)，以及[动手深度学习（Dive into Deep Learning)](https://tangshusen.me/Dive-into-DL-PyTorch/)。
 
@@ -1157,6 +1489,8 @@ print("参数(权值+偏置)更新结果：\nparams_={}".format(params_))
 * 前向和反向传播
 
 * PyTorch构建神经网络模型
+
+* runx.logx-深度学习实验管理
 
 #### 1.5.2 新建立的函数
 

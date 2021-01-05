@@ -1,0 +1,40 @@
+start,start/step,0,timestamp,1609812912.8344448
+val,loss,"tensor(2.7100e+08, device='cuda:0')",epoch,0,timestamp,1609812915.5066504
+val,loss,"tensor(1.3438e+08, device='cuda:0')",epoch,1,timestamp,1609812915.5475404
+val,loss,"tensor(1.3020e+08, device='cuda:0')",epoch,2,timestamp,1609812915.5774603
+val,loss,"tensor(1.2627e+08, device='cuda:0')",epoch,3,timestamp,1609812915.5994024
+val,loss,"tensor(1.2257e+08, device='cuda:0')",epoch,4,timestamp,1609812915.6324563
+val,loss,"tensor(1.1909e+08, device='cuda:0')",epoch,5,timestamp,1609812915.6613765
+val,loss,"tensor(1.1582e+08, device='cuda:0')",epoch,6,timestamp,1609812915.6893027
+val,loss,"tensor(1.1274e+08, device='cuda:0')",epoch,7,timestamp,1609812915.7202523
+val,loss,"tensor(1.0984e+08, device='cuda:0')",epoch,8,timestamp,1609812915.7481441
+val,loss,"tensor(1.0711e+08, device='cuda:0')",epoch,9,timestamp,1609812915.7770674
+start,start/step,0,timestamp,1609812943.4666014
+val,loss,"tensor(2.0785e+08, device='cuda:0')",epoch,0,timestamp,1609812943.4995134
+val,loss,"tensor(1.3389e+08, device='cuda:0')",epoch,1,timestamp,1609812943.5204575
+val,loss,"tensor(1.2974e+08, device='cuda:0')",epoch,2,timestamp,1609812943.544361
+start,start/step,0,timestamp,1609813302.2882593
+val,loss,"tensor(2.7500e+08, device='cuda:0')",epoch,0,timestamp,1609813302.32217
+val,loss,"tensor(1.3435e+08, device='cuda:0')",epoch,1,timestamp,1609813302.3451076
+val,loss,"tensor(1.3017e+08, device='cuda:0')",epoch,2,timestamp,1609813302.369043
+start,start/step,0,timestamp,1609813322.692953
+val,loss,"tensor(1.9817e+08, device='cuda:0')",epoch,0,timestamp,1609813322.7228415
+val,loss,"tensor(1.3376e+08, device='cuda:0')",epoch,1,timestamp,1609813322.7438164
+val,loss,"tensor(1.2961e+08, device='cuda:0')",epoch,2,timestamp,1609813322.763764
+start,start/step,0,timestamp,1609813422.8920903
+val,loss,"tensor(2.2717e+08, device='cuda:0')",epoch,0,timestamp,1609813422.929995
+val,loss,"tensor(1.3408e+08, device='cuda:0')",epoch,1,timestamp,1609813422.9499319
+val,loss,"tensor(1.2992e+08, device='cuda:0')",epoch,2,timestamp,1609813422.9698777
+start,start/step,0,timestamp,1609813438.2915473
+val,loss,"tensor(2.0448e+08, device='cuda:0')",epoch,0,timestamp,1609813438.3105357
+val,loss,"tensor(1.3387e+08, device='cuda:0')",epoch,1,timestamp,1609813438.332469
+val,loss,"tensor(1.2972e+08, device='cuda:0')",epoch,2,timestamp,1609813438.3534136
+start,start/step,0,timestamp,1609813751.4421675
+val,loss,"tensor(2.7365e+08, device='cuda:0')",epoch,0,timestamp,1609813751.476085
+val,loss,"tensor(1.3440e+08, device='cuda:0')",epoch,1,timestamp,1609813751.4970276
+val,loss,"tensor(1.3022e+08, device='cuda:0')",epoch,2,timestamp,1609813751.5179322
+start,start/step,0,timestamp,1609814318.6250205
+val,loss,"tensor(1.4700e+08, device='cuda:0')",epoch,0,timestamp,1609814318.66089
+val,loss,"tensor(1.3308e+08, device='cuda:0')",epoch,1,timestamp,1609814318.689845
+val,loss,"tensor(1.2897e+08, device='cuda:0')",epoch,2,timestamp,1609814318.7157845
+start,start/step,0,timestamp,1609819533.839374

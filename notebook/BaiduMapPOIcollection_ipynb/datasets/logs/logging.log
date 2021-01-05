@@ -1,0 +1,47 @@
+epoch 0, train loss 303215808.000000, valid loss 271000832.000000
+epoch 1, train loss 114988496.000000, valid loss 134382752.000000
+epoch 2, train loss 111184032.000000, valid loss 130201600.000000
+epoch 3, train loss 107616656.000000, valid loss 126268928.000000
+epoch 4, train loss 104271616.000000, valid loss 122569664.000000
+epoch 5, train loss 101135072.000000, valid loss 119089672.000000
+epoch 6, train loss 98194080.000000, valid loss 115815648.000000
+epoch 7, train loss 95436448.000000, valid loss 112735152.000000
+epoch 8, train loss 92850808.000000, valid loss 109836464.000000
+epoch 9, train loss 90426432.000000, valid loss 107108584.000000
+epoch 0, train loss 215418528.000000, valid loss 207852192.000000
+epoch 1, train loss 114564576.000000, valid loss 133889840.000000
+epoch 2, train loss 110787680.000000, valid loss 129737904.000000
+epoch 0, train loss 308664128.000000, valid loss 275004224.000000
+epoch 1, train loss 115041504.000000, valid loss 134353216.000000
+epoch 2, train loss 111235232.000000, valid loss 130171104.000000
+epoch 0, train loss 201896384.000000, valid loss 198174432.000000
+epoch 1, train loss 114495312.000000, valid loss 133755360.000000
+epoch 2, train loss 110722456.000000, valid loss 129608496.000000
+epoch 0, train loss 242098544.000000, valid loss 227167424.000000
+epoch 1, train loss 114710048.000000, valid loss 134080352.000000
+epoch 2, train loss 110923784.000000, valid loss 129918160.000000
+epoch 0, train loss 210573664.000000, valid loss 204481808.000000
+epoch 1, train loss 114519008.000000, valid loss 133866680.000000
+epoch 2, train loss 110744536.000000, valid loss 129717008.000000
+epoch 0, train loss 306808032.000000, valid loss 273654848.000000
+epoch 1, train loss 115021800.000000, valid loss 134397744.000000
+epoch 2, train loss 111216208.000000, valid loss 130215536.000000
+epoch 0, train loss 130899040.000000, valid loss 147000880.000000
+epoch 1, train loss 113842432.000000, valid loss 133075440.000000
+epoch 2, train loss 110110872.000000, valid loss 128971048.000000
+the expression generating labels:w1*x1+-w2*x2+b
+net:MLP(
+  (hidden): Linear(in_features=2, out_features=2, bias=True)
+  (activation): ReLU()
+  (output): Linear(in_features=2, out_features=1, bias=True)
+)
+epoch 100, loss: 0.000105
+epoch 200, loss: 0.000098
+epoch 300, loss: 0.000116
+epoch 400, loss: 0.000073
+epoch 500, loss: 0.000116
+epoch 600, loss: 0.000101
+epoch 700, loss: 0.000095
+epoch 800, loss: 0.000100
+epoch 900, loss: 0.000120
+epoch 1000, loss: 0.000112
