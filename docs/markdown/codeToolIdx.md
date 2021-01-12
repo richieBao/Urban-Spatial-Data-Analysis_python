@@ -194,3 +194,58 @@
 133. class - 神经网络每一层的定义, `NEURAL_LAYER`
 134. class - 构建多层感知机（神经网络）, ` NEURAL_NETWORK`
 135. PyTorch自定义激活函数、模型、损失函数及梯度下降法, `sigmoid(X), net(X), loss(y_hat,y)`
+
+
+## 21. 伯努利分布(Bernouli distribution)，似然函数，最大/极大似然估计(Maximum Likelihood Estimation, MLE)，逻辑回归(Logistic Regression, LR)二分类，SoftMax回归多分类
+
+136. function - 按指定区间缩放/映射数组/Rescale an arrary linearly. `rescale_linear(array, new_min, new_max)`
+137. class - 自定义逻辑回归(二元分类). `LogisticRegression:`
+
+包括：
+
+138. function - 根据一元一次函数构建二维离散型分类数据集，类标为1和0. `generate_dataset_linear(self,slop,intercept,num=100,multiple=10,magnitude=50)
+139. function - 使用Sklearn提供的make_classification方法，直接构建离散型分类数据集. `make_classification_dataset(self,n_features=2,n_classes=2,n_samples=100,n_informative=2,n_redundant=0,n_clusters_per_class=1)`
+140. function - 绘制逻辑回归结果. `plot(self,X,y,weights,figsize=(10,10))`
+141. function - 逻辑回归函数_sigmoid函数. `sigmoid(self,x)`
+142. function - 随机梯度下降（优化）. `stocGradAscent1(self,dataMatrix, classLabels, numIter=150)`
+143. function - 代入梯度下降法训练的权重值于逻辑回归函数（sigmoid），预测样本特征对应的类标. `classifyVector(self,inX, weights)`
+144. function - 测试训练模型. `test_accuracy(self,X_,y_,weights)`
+
+---
+
+145. function - 使用Sklearn提供的make_classification方法，直接构建离散型分类数据集;并打印查看. `make_classification_dataset_(n_features=2,n_classes=2,n_samples=100,n_informative=2,n_redundant=0,n_clusters_per_class=1,figsize=(10,10),plot=True)`
+146. class - 自定义softmax回归多分类
+
+包括：
+
+147. function - 定义softmax函数. `softmax(self,Z)`
+148. function - 定义线性函数. `linear_weights(self,X)`
+149. function - 定义损失函数. `closs(self,y_one_hot,y_probs)`
+150. function - numpy实现one-hot-code. `one_hot(self,y)`
+151. function - 定义梯度下降法，权值更新. `gradient(self,X,y_one_hot,y_probs,lr,lambda_)`
+152. function - 预测. `predict_test(self,X_,y_`
+153. function - 更新打印损失曲线. `loss_curve(self,figsize=(8,5))`
+154. function - 训练模型. `train(self,X,y,epochs,lr=0.1,lambda_=0.01)`
+
+---
+
+155. class - 自定义softmax回归多分类_PyTorch版. `softmax_multiClass_classification_UDF_pytorch`
+
+包括：
+
+156. function - 定义SoftMax函数. `SoftMax(self,Z)`
+157. function - 定义模型，含线性模型输入，SoftMax回归输出. `net(self,X)`
+158. function - 定义交叉熵损失函数. `cross_entropy(self,y_pred,y)`
+159. function - 定义分类准确率，即正确预测数量与总预测数量之比. `accuracy(self,y_pred,y)`
+160. funtion - 平均模型net在数据集data_iter上的准确率. `evaluate_accuracy(self,data_iter)`
+161. funtion - 梯度下降. `sgd(self,lr)`
+162. function - 训练模型. `train(self,train_iter,epochs,lr,test_iter=None)`
+
+---
+
+163. class - 将每批次样本X的形状转换为(batch_size,-1). `flattenLayer(nn.Module)`
+164. funtion - 平均模型net在数据集data_iter上的准确率. `evaluate_accuracy(data_iter, net)`
+165. funtion - 梯度下降，v1版. `sgd_v1(params,lr)`
+166. function - 训练模型，v1版. `train_v1(net,train_iter, test_iter, loss, num_epochs,params=None, lr=None, optimizer=None,interval_print=100)`
+167. function - 将Fashion-MNIST数据集，整型类标转换为名称. `fashionMNIST_label_num2text(labels_int)`
+168. function - 打印显示Fashion-MNIST数据集图像. `fashionMNIST_show(imgs,labels,figsize=(12, 12))`
