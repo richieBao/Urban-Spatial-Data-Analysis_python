@@ -1149,4 +1149,70 @@ def imgs_layoutShow(imgs_root,imgsFn_lst,columns,scale,figsize=(15,10)):
     plt.show()
 
     
+#将每批次样本X的形状转换为(batch_size,-1)
+from torch import nn
+class flattenLayer(nn.Module):
+    def __init__(self):
+        super(flattenLayer,self).__init__()
+    def forward(self,x):
+        return x.view(x.shape[0],-1)
+
+def evaluate_accuracy(data_iter, net):
+    '''
+    funtion - 平均模型net在数据集data_iter上的准确率
+    '''
+    accu_sum,n=0.0,0
+    for X,y in data_iter:
+        accu_sum+=(net(X).argmax(dim=1)==y).float().sum().item()
+        n+=y.shape[0]
+    return accu_sum/n
+
+def sgd_v1(params,lr):
+    '''
+    funtion - 梯度下降，v1版
+    '''
+    for param in params:
+        param.data-=lr*param.grad
+        
+def train_v1(net,train_iter, test_iter, loss, num_epochs,params=None, lr=None, optimizer=None,interval_print=100):
+    from tqdm.auto import tqdm
+    '''
+    function - 训练模型，v1版
     
+    Paras:
+    net - 构建的模型结构
+    train_iter - 可迭代训练数据集
+    test_iter - 可迭代测试数据集
+    loss - 损失函数
+    num_epochs - 训练迭代次数
+    params=None - 初始化模型参数，以列表形式表述，例如[W,b]
+    lr=None, - 学习率
+    optimizer=None - 优化函数
+    intervation - 训练模型，v1版
+    '''
+    for epoch in tqdm(range(num_epochs)):
+        train_l_sum, train_acc_sum, n=0.0, 0.0, 0
+        for X, y in train_iter:
+            y_pred=net(X)
+            l=loss(y_pred,y).sum()
+            
+            #梯度清零
+            if optimizer is not None:
+                optimizer.zero_grad()
+            elif params is not None and params[0].grad is not None:
+                for param in params:
+                    param.grad.data.zero_()
+            
+            l.backward()
+            if optimizer is None:
+                sgd_v1(params,lr) #应用自定义的梯度下降法
+            else:
+                optimizer.step() #应用torch.optim.SGD库的梯度下降法
+                
+            train_l_sum += l.item()
+            train_acc_sum += (y_pred.argmax(dim=1) == y).sum().item()
+            n += y.shape[0]
+        if test_iter is not None:        
+            test_acc = evaluate_accuracy(test_iter, net)
+        if epoch%interval_print==0:
+            print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'%(epoch + 1, train_l_sum / n, train_acc_sum / n, test_acc))           

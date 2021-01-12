@@ -1,0 +1,13 @@
+{
+    "max_epoch": 180,
+    "global_rank": 0,
+    "test_mode": false,
+    "init_decoder": false,
+    "syncbn": false,
+    "extra_scales": "0.5,2.0",
+    "set_cityscapes_root": null,
+    "dataset": "cityscapes",
+    "result_dir": "./logs_sementic",
+    "cv": 0,
+    "world_size": 1
+}

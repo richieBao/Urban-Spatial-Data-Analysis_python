@@ -1,0 +1,571 @@
+cv split train 0 ['train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/darmstadt', 'train/dusseldorf', 'train/erfurt', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+cv split val 1 ['train/darmstadt', 'train/dusseldorf', 'train/erfurt']
+cv split val 1 ['train/darmstadt', 'train/dusseldorf', 'train/erfurt']
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+mode train found 3060 images
+mode train found 3060 images
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Didn't find D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json, so building it
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 2
+cls 1 len 2
+cls 2 len 2
+cls 3 len 1
+cls 4 len 2
+cls 5 len 2
+cls 6 len 2
+cls 7 len 2
+cls 8 len 2
+cls 9 len 2
+cls 10 len 2
+cls 11 len 2
+cls 12 len 1
+cls 13 len 1
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+num_classes = 19
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
