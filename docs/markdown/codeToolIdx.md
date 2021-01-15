@@ -249,3 +249,33 @@
 166. function - 训练模型，v1版. `train_v1(net,train_iter, test_iter, loss, num_epochs,params=None, lr=None, optimizer=None,interval_print=100)`
 167. function - 将Fashion-MNIST数据集，整型类标转换为名称. `fashionMNIST_label_num2text(labels_int)`
 168. function - 打印显示Fashion-MNIST数据集图像. `fashionMNIST_show(imgs,labels,figsize=(12, 12))`
+
+
+## 22. 卷积神经网络，可视化卷积层/卷积核,tensorboard,torchvision.models与VGG网络
+
+169. class - PyTorch 卷积层，池化层输出尺寸(shape)计算，及根据输入，输出尺寸(shape)反推pad填充大小. `conv2d_output_size_calculation`
+
+包括：
+
+170. function - 如果num=2，则返回(2,2)；如果num=(2,2)，则返回(2,2). `num2tuple(self,num)`
+171. funciton - 计算PyTorch的nn.Conv2d卷积方法的输出尺寸。以卷积核左上角对位图像左上角第一个像素值开始由左-->右，由上-->下卷积计算. `conv2d_output_shape(self,h_w, kernel_size=1, stride=1, pad=0, dilation=1)`
+172. function - 以卷积核右下角对位图像左上角第一个像素值开始由左-->右，由上-->下卷积计算. `convtransp2d_output_shape(self,h_w, kernel_size=1, stride=1, pad=0, dilation=1, out_pad=0)`
+173. function - conv2d_output_shape 方法的逆，求填充pad. `conv2d_get_padding(self,h_w_in, h_w_out, kernel_size=1, stride=1, dilation=1)`
+174. function - convtransp2d_output_shape 方法的逆，求填充pad. `convtransp2d_get_padding(self,h_w_in, h_w_out, kernel_size=1, stride=1, dilation=1, out_pad=0)`
+175. function - pooling池化层输出尺寸，同conv2d_output_shape. ` pooling_output_shape(self,h_w, kernel_size=1, stride=1, pad=0, dilation=1)`
+
+---
+
+176. fucntion - 一次性计算卷积输出尺寸. `conv2d_outputSize_A_oneTime(convs_params)`
+177. function - 下载读取fashionMNIST数据集，并建立训练、测试可迭代数据集. `load_fashionMNIST(root,batchsize=4,num_workers=2,resize=None,n_mean=0.5,n_std=0.5)`
+178. 自定义net_fashionMNIST(nn.Module)网络. `net_fashionMNIST(nn.Module)`
+179. 定义显示图像函数（一个batch批次）. `matplotlib_imshow(img, one_channel=False)`
+180. function - 用训练的网络预测给定的一组图像，并计算相应的概率. `images_to_probs(net, images)`
+181. function - 用训练的网络预测给定的一组图像，并计算概率后，显示图像、预测值以及概率，和实际的标签. `plot_classes_preds(net, images, labels)`
+182. class - 取回卷积神经网络中所有卷积层及其权重. `class conv_retriever`
+183. function - 可视化卷积核 visualize the conv layer filters. `visualize_convFilter(conv_layer,model_weight,output_name,figsize=(10,10))`
+184. function - 可视化所有卷积层（卷积结果）. `visualize_convLayer(imgs_batch,conv_layers,model_weights,num_show=6,figsize=(10,10))`
+185. function - 自定义VGG. `vgg_block(num_convs,in_channels,out_channels)`;`vgg(conv_arch,fc_features,fc_hidden_units=4096)`
+186. function - 查看可迭代数据形状. `dataiter_view(dataiter)`
+187. function - 模型精度计算. `evaluate_accuracy_V2(data_iter, net, device=None)`
+188. function - 训练模型，v2版. `train_v2(net, train_iter, test_iter,optimizer, device, num_epochs)`

@@ -26,6 +26,7 @@
     * [2.19 视觉词袋（BOW），决策树（Decision trees）->随机森林（Random forests），交叉验证 cross_val_score，视觉感知-图像分类_识别器，网络实验平台服务器端部署](./notebook_code/bow_decisionTrees.md)
     * [2.20 从解析解(analytical solution)-->到数值解(numerical solution) | 从机器学习scikit-learn-->到深度学习pytorch](./notebook_code/pytorch.md)
     * [2.21 伯努利分布(Bernouli distribution)，似然函数，最大/极大似然估计(Maximum Likelihood Estimation, MLE)，逻辑回归(Logistic Regression, LR)二分类，SoftMax回归多分类](./notebook_code/softmax.md)
+    * [2.22 卷积神经网络，可视化卷积层/卷积核,tensorboard,torchvision.models与VGG网络](./notebook_code/CNN.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)
