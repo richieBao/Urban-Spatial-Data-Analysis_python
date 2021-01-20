@@ -569,3 +569,163 @@ Trunk: wrn38
 Using Cross Entropy Loss
 Using Cross Entropy Loss
 Trunk: wrn38
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Loading centroid file D:\Cityscapes_assets\uniform_centroids\_cv1_tile1024.json
+Found 19 centroids
+Class Uniform Percentage: 0.5
+Class Uniform items per Epoch: 3060
+cls 0 len 10
+cls 1 len 10
+cls 2 len 10
+cls 3 len 3
+cls 4 len 4
+cls 5 len 10
+cls 6 len 7
+cls 7 len 9
+cls 8 len 9
+cls 9 len 1
+cls 10 len 7
+cls 11 len 8
+cls 12 len 3
+cls 13 len 9
+cls 14 len 1
+cls 15 len 2
+cls 16 len 3
+cls 17 len 2
+cls 18 len 4
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+cv split train 1 ['val/frankfurt', 'val/munster', 'val/lindau', 'train/aachen', 'train/bochum', 'train/bremen', 'train/cologne', 'train/hamburg', 'train/hanover', 'train/jena', 'train/krefeld', 'train/monchengladbach', 'train/strasbourg', 'train/stuttgart', 'train/tubingen', 'train/ulm', 'train/weimar', 'train/zurich']
+mode train found 3060 images
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+num_classes = 19
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38
+Using Cross Entropy Loss
+Using Cross Entropy Loss
+Trunk: wrn38

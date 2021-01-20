@@ -279,3 +279,15 @@
 186. function - 查看可迭代数据形状. `dataiter_view(dataiter)`
 187. function - 模型精度计算. `evaluate_accuracy_V2(data_iter, net, device=None)`
 188. function - 训练模型，v2版. `train_v2(net, train_iter, test_iter,optimizer, device, num_epochs)`
+
+## 23. 对象检测(Mask R-CNN)与人流量估算；图像分割（torchvision.models）与城市空间内容统计，及关联网络结构
+
+189. class - PennFudanPed数据集，建立可迭代对象(迁移). `PennFudanDataset(torch.utils.data.Dataset)`
+190. function - PennFudanPed数据集，行人对象检测模型精调（迁移）. `get_instance_segmentation_model(num_classes)`
+191. function - 转换图像为tensor，可以包含多种变化（迁移）. `get_transform(train)`
+192. function - fcn_resnet101模型，图像分割的类别给与颜色标识（迁移）. `decode_segmap_FCN_RESNET101(image, nc=21)`
+193. function - 应用 torchvision.models.segmentation.fcn_resnet101预测图像，并打印显示分割预测结果（迁移，更新）. `segmentation_FCN_RESNET101_plot(net, path, show_orig=True, dev='cuda',img_resize=640,figsize=(20, 20))`
+194. function - 应用 torchvision.models.segmentation.fcn_resnet101预测图像，并打印显示分割预测结果的动画. `segmentation_FCN_RESNET101_animation(net, paths,save_path='./animation.mp4' ,dev='cuda',img_resize=640,interval=150,figsize=(20, 20))`
+195. function - 应用 torchvision.models.segmentation.fcn_resnet101预测图像，返回预测结果. `egmentation_FCN_RESNET101(net, path, show_orig=True, dev='cuda',img_resize=640)`
+196. function - 计算列表的频数. `count_list_frequency(lst)`
+197. function - 根据连续的图像分割数据，计算各个一对象（真实世界存在的物）与其它对象对应的数量，构建网络结构，分析相互关系. `objects_network_PascalVOC(seg_idxs,figsize=(15,15),layout='spring_layout',w_ratio=0.5)`
