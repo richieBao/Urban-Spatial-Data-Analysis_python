@@ -291,3 +291,10 @@
 195. function - 应用 torchvision.models.segmentation.fcn_resnet101预测图像，返回预测结果. `egmentation_FCN_RESNET101(net, path, show_orig=True, dev='cuda',img_resize=640)`
 196. function - 计算列表的频数. `count_list_frequency(lst)`
 197. function - 根据连续的图像分割数据，计算各个一对象（真实世界存在的物）与其它对象对应的数量，构建网络结构，分析相互关系. `objects_network_PascalVOC(seg_idxs,figsize=(15,15),layout='spring_layout',w_ratio=0.5)`
+
+## 24. 开放神经网络交换-ONNX(Open Neural Network,Exchage)，netron，Cityscapes数据集，DUC(Dense Upsampling Convolution)图像分割与城市空间要素组成，时空量度，绿视率
+
+198. class - 使用类的属性存储参数，并配置参数immutable与mutable互相转换的方法，迁移'https://github.com/facebookresearch/Detectron/blob/master/detectron/utils/collections.py'.  `AttrDict(dict)`
+199. function - DUC图像分割，及预测图像保存. `sementicSeg_DUC_pred(DUC_output_root,img_fps,preprocess,predict)`
+200. function - 读取DUC语义分割结果保存的'KITTI_DUC_confi.pkl'和'KITTI_DUC_raw.pkl'文件，用于位置图像对象/语义分割类别频数统计. `DUC_pred_frequency_moment(KITTI_DUC_raw_fp,KITTI_DUC_confi_fp)`
+201. function - 计算DataFrame每行的信息熵，用于df.apply(lambda). `entroy_df_row(row)`
