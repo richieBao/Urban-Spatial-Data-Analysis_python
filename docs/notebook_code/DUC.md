@@ -1419,50 +1419,7 @@ print('Confidence = %f' %(conf))
 ```
 
     Confidence = 0.929088
-    
-
-
-```python
-
-labels = [
-    #       name                     id    trainId   category            catId     hasInstances   ignoreInEval   color
-    Label(  'unlabeled'            ,  0 ,      255 , 'void'            , 0       , False        , True         , (  0,  0,  0) ),
-    Label(  'ego_vehicle'          ,  1 ,      255 , 'void'            , 0       , False        , True         , (  0,  0,  0) ),
-    Label(  'rectification_border' ,  2 ,      255 , 'void'            , 0       , False        , True         , (  0,  0,  0) ),
-    Label(  'out_of_roi'           ,  3 ,      255 , 'void'            , 0       , False        , True         , (  0,  0,  0) ),
-    Label(  'static'               ,  4 ,      255 , 'void'            , 0       , False        , True         , (  0,  0,  0) ),
-    Label(  'dynamic'              ,  5 ,      255 , 'void'            , 0       , False        , True         , (111, 74,  0) ),
-    Label(  'ground'               ,  6 ,      255 , 'void'            , 0       , False        , True         , ( 81,  0, 81) ),
-    Label(  'road'                 ,  7 ,        0 , 'flat'            , 1       , False        , False        , (128, 64,128) ),
-    Label(  'sidewalk'             ,  8 ,        1 , 'flat'            , 1       , False        , False        , (244, 35,232) ),
-    Label(  'parking'              ,  9 ,      255 , 'flat'            , 1       , False        , True         , (250,170,160) ),
-    Label(  'rail_track'           , 10 ,      255 , 'flat'            , 1       , False        , True         , (230,150,140) ),
-    Label(  'building'             , 11 ,        2 , 'construction'    , 2       , False        , False        , ( 70, 70, 70) ),
-    Label(  'wall'                 , 12 ,        3 , 'construction'    , 2       , False        , False        , (102,102,156) ),
-    Label(  'fence'                , 13 ,        4 , 'construction'    , 2       , False        , False        , (190,153,153) ),
-    Label(  'guard_rail'           , 14 ,      255 , 'construction'    , 2       , False        , True         , (180,165,180) ),
-    Label(  'bridge'               , 15 ,      255 , 'construction'    , 2       , False        , True         , (150,100,100) ),
-    Label(  'tunnel'               , 16 ,      255 , 'construction'    , 2       , False        , True         , (150,120, 90) ),
-    Label(  'pole'                 , 17 ,        5 , 'object'          , 3       , False        , False        , (153,153,153) ),
-    Label(  'polegroup'            , 18 ,      255 , 'object'          , 3       , False        , True         , (153,153,153) ),
-    Label(  'traffic_light'        , 19 ,        6 , 'object'          , 3       , False        , False        , (250,170, 30) ),
-    Label(  'traffic_sign'         , 20 ,        7 , 'object'          , 3       , False        , False        , (220,220,  0) ),
-    Label(  'vegetation'           , 21 ,        8 , 'nature'          , 4       , False        , False        , (107,142, 35) ),
-    Label(  'terrain'              , 22 ,        9 , 'nature'          , 4       , False        , False        , (152,251,152) ),
-    Label(  'sky'                  , 23 ,       10 , 'sky'             , 5       , False        , False        , ( 70,130,180) ),
-    Label(  'person'               , 24 ,       11 , 'human'           , 6       , True         , False        , (220, 20, 60) ),
-    Label(  'rider'                , 25 ,       12 , 'human'           , 6       , True         , False        , (255,  0,  0) ),
-    Label(  'car'                  , 26 ,       13 , 'vehicle'         , 7       , True         , False        , (  0,  0,142) ),
-    Label(  'truck'                , 27 ,       14 , 'vehicle'         , 7       , True         , False        , (  0,  0, 70) ),
-    Label(  'bus'                  , 28 ,       15 , 'vehicle'         , 7       , True         , False        , (  0, 60,100) ),
-    Label(  'caravan'              , 29 ,      255 , 'vehicle'         , 7       , True         , True         , (  0,  0, 90) ),
-    Label(  'trailer'              , 30 ,      255 , 'vehicle'         , 7       , True         , True         , (  0,  0,110) ),
-    Label(  'train'                , 31 ,       16 , 'vehicle'         , 7       , True         , False        , (  0, 80,100) ),
-    Label(  'motorcycle'           , 32 ,       17 , 'vehicle'         , 7       , True         , False        , (  0,  0,230) ),
-    Label(  'bicycle'              , 33 ,       18 , 'vehicle'         , 7       , True         , False        , (119, 11, 32) ),
-    Label(  'license_plate'        , -1 ,       -1 , 'vehicle'         , 7       , False        , True         , (  0,  0,142) ),
-]
-```
+   
 
 ### 1.6 城市空间要素组成，时空量度，绿视率，均衡度
 cityscapes数据集，其标签/分类包括主要的城市街道场景内容，这为城市空间的分析提供了基础的数据支持，例如对于固定行进流线，视野方向和宽度下，通过标签'vegetation'可以计算绿视率(Good Looking Ratio)，当绿视率达到一定水平，会让行人在街道空间中觉得舒适；通过'sky'可以获知视野下所见天空的比例，这与天空视域因子(Sky View Factor, SVF)可以比较研究；对于其它项，例如'car' ，'truck'，'bus'  可以初步判断某一时刻街道的交通情况，'person' ，'rider'则可以初步判断行人情况。根据待分析的内容可以有意识的选择对应的要素进行分析，也可以综合考虑所有因素，计算每一位置的信息熵和均衡度，比较不同位置的混杂程度，通常混杂比较高的位置可能感觉会比较热闹，而低的区域则相对简单和冷清。
